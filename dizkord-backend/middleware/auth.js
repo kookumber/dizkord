@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 
 const config = process.env
 
+// This will be our middleware to verify auth token for user so they can access protected routes
 const verifyToken = (req, res, next) => {
     let token = req.body.token || req.query.token || req.headers['authorization'];
 
@@ -18,4 +19,8 @@ const verifyToken = (req, res, next) => {
     } catch(err) {
         return res.status(401).send('Invalid Token')
     }
+    // If try works, just execute next step
+    return next()
 }
+
+module.exports = verifyToken

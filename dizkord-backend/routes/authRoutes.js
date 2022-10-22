@@ -3,6 +3,7 @@ const router = express.Router()
 const authControllers = require('../controllers/auth/authControllers')
 const Joi = require('joi') // joi is one of the best backages for validating data for javascript
 const validator = require('express-joi-validation').createValidator({})
+const auth = require('../middleware/auth')
 
 // Validation schema to validate data we get
 const registerSchema = Joi.object({
@@ -23,5 +24,9 @@ router.post('/register',
 router.post('/login', 
     validator.body(loginSchema), 
     authControllers.controllers.postLogin);
+
+router.get('/test', auth, (req, res) => {
+    res.send("request passed")
+})
 
 module.exports = router;
