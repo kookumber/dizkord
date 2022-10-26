@@ -3,14 +3,12 @@ import * as api from '../../utils/api/authApis'
 export const authActions = {
     SET_USER_DETAILS: 'AUTH.SET_USER_DETAILS',
     SET_ERROR_MESSAGE: 'AUTH.SET_ERROR_MESSAGE',
-    RESET: 'AUTH.RESET'
 }
 
 export const getActions = (dispatch) => {
     return {
         login: (userDetails, history) => dispatch(login(userDetails, history)),
         register: (userDetails, history) => dispatch(register(userDetails, history)),
-        reset: () => dispatch(reset())
     }
 }
 
@@ -64,11 +62,5 @@ const register = (userDetails, navigate) => {
             dispatch(setUserDetails(userDetails))
             navigate('/dashboard')
         }
-    }
-}
-
-const reset = () => {
-    return async (dispatch) => {
-        dispatch()
     }
 }

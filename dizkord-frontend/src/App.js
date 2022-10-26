@@ -9,7 +9,6 @@ import './App.css';
 import LoginPage from './components/authPages/LoginPage/LoginPage';
 import RegisterPage from './components/authPages/RegisterPage/RegisterPage';
 import Dashboard from './components/dashboard/Dashboard';
-import AlertNotifications from './components/sharedComponents/AlertNotifications';
 
 function App() {
   return (
@@ -23,7 +22,6 @@ function App() {
               </Route>
           </Routes>
       </Router>
-      <AlertNotifications />
     </>
   );
 }
