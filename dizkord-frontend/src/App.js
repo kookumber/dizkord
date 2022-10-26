@@ -3,12 +3,13 @@ import {
   BrowserRouter as Router, 
   Routes, 
   Route,
-  Navigate} from "react-router-dom"
+  } from "react-router-dom"
 import './App.css';
 
 import LoginPage from './components/authPages/LoginPage/LoginPage';
 import RegisterPage from './components/authPages/RegisterPage/RegisterPage';
 import Dashboard from './components/dashboard/Dashboard';
+import AlertNotifications from './components/sharedComponents/AlertNotifications';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
               </Route>
           </Routes>
       </Router>
+      <AlertNotifications />
     </>
   );
 }
