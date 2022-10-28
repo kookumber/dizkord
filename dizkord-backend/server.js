@@ -4,6 +4,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
+const socketServer = require('./socketServer')
 const authRoutes = require('./routes/authRoutes')
 
 const PORT = process.env.PORT || process.env.API_PORT;
@@ -16,6 +17,10 @@ app.use(cors());
 app.use('/api/auth', authRoutes)
 
 const server = http.createServer(app)
+
+// Here we run the registerSocketServer function we create so socket will be
+// added to http server
+socketServer.registerSocketServer(server)
 
 // Mongoose is package that lets us work with MongoDB easily
 mongoose.connect(process.env.MONGO_URI)
