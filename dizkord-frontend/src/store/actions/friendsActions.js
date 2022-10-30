@@ -8,8 +8,7 @@ export const friendsActions = {
 
 export const getActions = (dispatch) => {
     return {
-        sendFriendInvite: (data, closeDialogHandler) => 
-            dispatch(sendFriendInvite(data, closeDialogHandler))
+        sendFriendInvite: (data, closeDialogHandler) => dispatch(sendFriendInvite(data, closeDialogHandler)),
         
     }
 }
@@ -17,7 +16,7 @@ export const getActions = (dispatch) => {
 // This is will run our function to connect to backend api to send a post request
 // to make a friend invite
 const sendFriendInvite = (data, closeDialogHandler) => {
-    return async (dispatch) => {
+    return async () => {
         const response = await api.sendFriendInvite(data)
 
         if (response.error) {

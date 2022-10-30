@@ -30,6 +30,7 @@ const Dashboard = ({ setUserDetails }) => {
             connectWithSocketServer(JSON.parse(userDetails))
         }
     }, []) 
+
     return (
         <Wrapper>
             <Sidebar />
