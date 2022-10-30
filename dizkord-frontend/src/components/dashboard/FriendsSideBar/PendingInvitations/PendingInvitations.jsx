@@ -1,30 +1,8 @@
 import React from "react";
 import { styled } from "@mui/system";
 import PendingInvititationsListItem from "./PendingInvititationsListItem";
+import { connect } from "react-redux";
 
-const DUMMY_INVITES = [
-    {
-        _id: 4,
-        senderId: {
-            username: 'Bruv',
-            email: 'Bruv@gmail.com'
-        }
-    },
-    {
-        _id: 5,
-        senderId: {
-            username: 'Bruv2',
-            email: 'Bruv2@gmail.com'
-        }
-    },
-    {
-        _id: 6,
-        senderId: {
-            username: 'Thing1',
-            email: 'Thing1@gmail.com'
-        }
-    }
-]
 
 const MainContainer = styled('div')({
     flexGrow: 1,
@@ -36,10 +14,12 @@ const MainContainer = styled('div')({
     overflow: 'auto'
 })
 
-const PendingInvitations = () => {
+// Mapping the state to props, we get the pendingFriendsInvite data when the action of SET_PENDING_FRIENDS_INVITE is executed
+const PendingInvitations = ({ pendingFriendsInvites }) => {
+    console.log("hi", pendingFriendsInvites)
     return (
         <MainContainer>
-            {DUMMY_INVITES.map(invite => (
+            {pendingFriendsInvites.map(invite => (
                 <PendingInvititationsListItem 
                     key={invite._id}
                     id={invite._id}
@@ -51,4 +31,10 @@ const PendingInvitations = () => {
     )
 }
 
-export default PendingInvitations
+const mapStoreStateToProps = ({ friends }) => {
+    return {
+        ...friends,
+    }
+}
+
+export default connect(mapStoreStateToProps)(PendingInvitations)

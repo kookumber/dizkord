@@ -31,6 +31,8 @@ const registerSocketServer = (server) => {
             disconnectHandler(socket)
         })
     })
+
+    
 }
 
 module.exports = { registerSocketServer }
