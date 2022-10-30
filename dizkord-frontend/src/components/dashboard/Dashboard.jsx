@@ -7,6 +7,7 @@ import AppBar from "./AppBar/AppBar";
 import { logout } from "../../utils/auth";
 import { connect } from "react-redux";
 import { getActions } from "../../store/actions/authActions";
+import { connectWithSocketServer } from "../../realtimeCommunication/socketConnection";
 
 const Wrapper = styled('div')({
     width: '100%',
@@ -24,8 +25,12 @@ const Dashboard = ({ setUserDetails }) => {
             // window.location.pathname = 'login'
         } else {
             setUserDetails(JSON.parse(userDetails))
+            // if there is a user, only then can we connect with the socket server
+            // using the function we created in our socketConnection file
+            connectWithSocketServer(JSON.parse(userDetails))
         }
     }, []) 
+
     return (
         <Wrapper>
             <Sidebar />

@@ -1,4 +1,4 @@
-import * as api from '../../utils/api/authApis'
+import * as api from '../../utils/api/apis'
 
 export const authActions = {
     SET_USER_DETAILS: 'AUTH.SET_USER_DETAILS',
