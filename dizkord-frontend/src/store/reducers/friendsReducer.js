@@ -16,7 +16,7 @@ const reducer = (state = initState, action) => {
         case friendsActions.SET_PENDING_FRIENDS_INVITE:
             return {
                 ...state,
-                pendingFriendsInvite: action.pendingFriendsInvites
+                pendingFriendsInvites: action.pendingFriendsInvites
             }
         case friendsActions.SET_ONLINE_USERS:
             return {

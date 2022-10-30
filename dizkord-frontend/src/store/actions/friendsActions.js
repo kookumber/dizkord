@@ -14,10 +14,10 @@ export const getActions = (dispatch) => {
 }
 
 // We're gonna dispatch this action to change our store state 
-export const setPendingFriendInvites = (pendingFriendInvites) => {
+export const setPendingFriendsInvites = (pendingFriendsInvites) => {
     return {
         type: friendsActions.SET_PENDING_FRIENDS_INVITE,
-        pendingFriendInvites
+        pendingFriendsInvites
     }
 }
 
