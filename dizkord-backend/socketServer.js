@@ -19,6 +19,11 @@ const registerSocketServer = (server) => {
         authSocket(socket, next)
     })
 
+    const emitOnlineUsers = () => {
+        const onlineUsers = serverStore.getOnlineUsers()
+        io.emit('online-users', { onlineUsers })
+    }
+
     // On connection, the socket will have all details of connected user
     io.on('connection', (socket) => {
         console.log('User connected')
@@ -26,12 +31,19 @@ const registerSocketServer = (server) => {
         
         // New connection handler
         newConnectionHandler(socket, io)
+        // Run function once upon successful connection to get list of online users
+        emitOnlineUsers()
 
         socket.on('disconnect', () => {
             disconnectHandler(socket)
         })
     })
 
+    // After the socket connection is up, we'll send the list of all online users to everyone connected to socket server
+    // Doing this via interval, the site will update online users every 8 seconds
+    setInterval(() => {
+        emitOnlineUsers()
+    }, [8000])
     
 }
 

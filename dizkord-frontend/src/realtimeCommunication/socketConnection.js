@@ -1,5 +1,5 @@
 import io from 'socket.io-client'
-import { setPendingFriendsInvites, setFriends } from '../store/actions/friendsActions'
+import { setPendingFriendsInvites, setFriends, setOnlineUsers } from '../store/actions/friendsActions'
 import store from '../store/store'
 
 let socket = null
@@ -28,5 +28,12 @@ export const connectWithSocketServer = (userDetails) => {
     socket.on('friends-list', (data) => {
         const { friends } = data;
         store.dispatch(setFriends(friends))
+    })
+
+    // Within our socket server, we created an emit function that connects with this
+    // client side through online-users so we can pass list of users from backend to frontend
+    socket.on('online-users', (data) => {
+        const { onlineUsers } = data;
+        store.dispatch(setOnlineUsers(onlineUsers))
     })
 }

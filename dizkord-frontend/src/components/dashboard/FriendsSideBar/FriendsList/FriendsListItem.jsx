@@ -40,7 +40,7 @@ const FriendsListItem = ({ id, username, isOnline }) => {
             >
                 {username}
             </Typography>
-            { isOnline ? <OnlineIndicator /> : null }
+            <OnlineIndicator isOnline={isOnline} />
         </Button>
     )
 }

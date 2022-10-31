@@ -1,19 +1,21 @@
 import React from "react";
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import { Box } from "@mui/material";
+import FiberManualRecordOutlinedIcon from '@mui/icons-material/FiberManualRecordOutlined';
 
-const OnlineIndicator = () => {
+const OnlineIndicator = ({ isOnline }) => {
+    
     return (
         <Box
             sx={{
-                color: '#3ba55d',
+                color: isOnline ? '#3ba55d' : '#99aab5',
                 display: 'flex',
                 alignItems: 'center',
                 position: 'absolute',
-                right: '5px'
+                right: '5px',
             }}
         >
-            <FiberManualRecordIcon />
+            {isOnline ? <FiberManualRecordIcon /> : <FiberManualRecordOutlinedIcon />}
         </Box>
     )
 }
