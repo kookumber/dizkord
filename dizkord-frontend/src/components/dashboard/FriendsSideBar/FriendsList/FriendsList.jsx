@@ -1,6 +1,7 @@
 import React from "react";
 import { styled } from "@mui/system";
 import FriendsListItem from "./FriendsListItem";
+import { connect } from "react-redux";
 
 const DUMMY_FRIENDS = [
     {
@@ -26,11 +27,11 @@ const MainContainer = styled('div')({
     height: '50%'
 })
 
-const FriendsList = () => {
+const FriendsList = ({ friends }) => {
     return (
         <MainContainer>
             {
-                DUMMY_FRIENDS.map(friend => (
+                friends.map(friend => (
                     <FriendsListItem 
                         key={friend.id}
                         id={friend.id} 
@@ -42,4 +43,11 @@ const FriendsList = () => {
     )
 }
 
-export default FriendsList
+// Basically pulling friends from the store, which has the combine reducers which will return global state
+const mapStoreStateToProps = ({ friends }) => {
+    return {
+        ...friends,
+    }
+}
+
+export default connect(mapStoreStateToProps)(FriendsList)

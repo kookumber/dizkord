@@ -16,6 +16,7 @@ const updateFriendsPendingInvite = async (userId) => {
         // because one user can be connected with multiple devices
         const receiverList = serverStore.getOnlineUsers(userId)
 
+        // Get io server instance
         const io = serverStore.getSocketServerInstance()
 
         // This will update pending invites 
@@ -32,7 +33,52 @@ const updateFriendsPendingInvite = async (userId) => {
     }
 }
 
+const updateFriendsList = async (userId) => {
+    try {
+        // Get active connections of specific id 
+        const userList = serverStore.getOnlineUsers(userId)
+
+        // We run the code in this if state to make sure the specific user is online first
+        // Reason being that we're trying to get data for the friends of the user and display when they're online
+        // If they're not online, there is no point in running the below logic
+        if (userList.length > 0) {
+            // Get the user by id, and we can specify the specific data we want
+            // as to not pull unnecessary data, then populate the friends list through ref
+            const user = await User.findById(userId, { _id: 1, friends: 1 }).populate(
+                'friends',
+                '_id username email'
+            )
+
+            
+            if (user) {
+                const friendsList = user.friends.map((friend) => {
+                    return {
+                        id: friend._id,
+                        email: friend.email,
+                        username: friend.username
+                    }
+                })
+            
+
+                // Get io server instance
+                const io = serverStore.getSocketServerInstance()
+
+                // Here, for every active connection the user has, we'll send (emit) to the user
+                // the friends list array that we created above
+                userList.forEach(userSocketId => {
+                    io.to(userSocketId).emit('friends-list', {
+                        friends: friendsList ? friendsList : []
+                    })
+                })
+            }
+        } 
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 
 module.exports = {
-    updateFriendsPendingInvite
+    updateFriendsPendingInvite,
+    updateFriendsList
 }

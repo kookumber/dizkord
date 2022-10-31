@@ -25,12 +25,24 @@ const postAccept = async (req, res) => {
         await receiverUser.save()
 
         // Now delete the invite from the list of pending invites
-        await FriendInvite.findByIdAndDelete(id)
+        // Its possible we received and sent invite for same person
+        // So find both invites and delete
+        const invite1 = await FriendInvite.find({senderId: senderId, receiverId: receiverId})
+        const invite2 = await FriendInvite.find({senderId: receiverId, receiverId: senderId})
+        
+        if (invite1) {
+            await FriendInvite.deleteOne(invite1[0])
+        }
 
-        // Update list of friends if the users are online for real-time rendering
+        if (invite2) {
+            await FriendInvite.deleteOne(invite2[0])
+        }
         
         // Update pending invites
         friendsUpdate.updateFriendsPendingInvite(receiverId.toString())
+        // Update friends list for real time rendering
+        friendsUpdate.updateFriendsList(senderId.toString())
+        friendsUpdate.updateFriendsList(receiverId.toString())
 
         return res.status(200).send('Friend successfully added')
     } catch (err) {
