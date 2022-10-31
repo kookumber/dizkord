@@ -1,5 +1,5 @@
 import io from 'socket.io-client'
-import { setPendingFriendsInvites } from '../store/actions/friendsActions'
+import { setPendingFriendsInvites, setFriends } from '../store/actions/friendsActions'
 import store from '../store/store'
 
 let socket = null
@@ -22,8 +22,11 @@ export const connectWithSocketServer = (userDetails) => {
         // pendingInvites will come from our sendFriendInvite action in our friendsActions frontend
         // which will use the friends reducer to return pending friend invites
         const { pendingInvites } = data
-        console.log('friends invite event came')
-        console.log(pendingInvites)
         store.dispatch(setPendingFriendsInvites(pendingInvites))
+    })
+    
+    socket.on('friends-list', (data) => {
+        const { friends } = data;
+        store.dispatch(setFriends(friends))
     })
 }
