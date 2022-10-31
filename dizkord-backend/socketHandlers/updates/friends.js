@@ -14,7 +14,7 @@ const updateFriendsPendingInvite = async (userId) => {
         
         // Now find all active connections of specific user getting invites; We say find all
         // because one user can be connected with multiple devices
-        const receiverList = serverStore.getOnlineUsers(userId)
+        const receiverList = serverStore.getActiveConnections(userId)
 
         // Get io server instance
         const io = serverStore.getSocketServerInstance()
@@ -36,7 +36,7 @@ const updateFriendsPendingInvite = async (userId) => {
 const updateFriendsList = async (userId) => {
     try {
         // Get active connections of specific id 
-        const userList = serverStore.getOnlineUsers(userId)
+        const userList = serverStore.getActiveConnections(userId)
 
         // We run the code in this if state to make sure the specific user is online first
         // Reason being that we're trying to get data for the friends of the user and display when they're online

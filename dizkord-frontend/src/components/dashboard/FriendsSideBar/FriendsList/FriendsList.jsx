@@ -3,35 +3,28 @@ import { styled } from "@mui/system";
 import FriendsListItem from "./FriendsListItem";
 import { connect } from "react-redux";
 
-const DUMMY_FRIENDS = [
-    {
-        id: 1,
-        username: 'banana',
-        isOnline: true
-    },
-    {
-        id: 2,
-        username: 'monkey',
-        isOnline: true
-    },
-    {
-        id: 3,
-        username: 'coolguy',
-        isOnline: false
-    }
-];
-
 const MainContainer = styled('div')({
     flexGrow: 1,
     width: '100%',
     height: '50%'
 })
 
-const FriendsList = ({ friends }) => {
+// Function to find if our friends are part of list of online users
+const checkFriendStatus = (friends = [], onlineUsers = []) => {
+    friends.forEach(friend => {
+        const isUserOnline = onlineUsers.find(user => user.userId === friend.id)
+        // If we find friend on onlineUsers list, we'll set isOnline status to true
+        friend.isOnline = isUserOnline ? true : false
+    })
+    return friends
+}
+
+const FriendsList = ({ friends, onlineUsers }) => {
+    
     return (
         <MainContainer>
             {
-                friends.map(friend => (
+                checkFriendStatus(friends, onlineUsers).map(friend => (
                     <FriendsListItem 
                         key={friend.id}
                         id={friend.id} 
