@@ -2,7 +2,7 @@ const authSocket = require('./middleware/authSocket')
 const newConnectionHandler = require('./socketHandlers/newConnectionHandler')
 const disconnectHandler = require('./socketHandlers/disconnectHandler')
 const serverStore = require('./serverStore')
-
+const directMessageHandler = require('./socketHandlers/directMessageHandler')
 // serverJS file will use the below function
 const registerSocketServer = (server) => {
     const io = require("socket.io")(server, {
@@ -34,9 +34,16 @@ const registerSocketServer = (server) => {
         // Run function once upon successful connection to get list of online users
         emitOnlineUsers()
 
+        // This listens to events from the client side, specifically anytime the sendDirectMessage
+        // function in the socketConnection file is called, which emits the message data via direct-message 
+        socket.on('direct-message', (data) => {
+            directMessageHandler(socket, data)
+        })
+
         socket.on('disconnect', () => {
             disconnectHandler(socket)
         })
+
     })
 
     // After the socket connection is up, we'll send the list of all online users to everyone connected to socket server
