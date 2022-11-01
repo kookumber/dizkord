@@ -1,10 +1,11 @@
 import io from 'socket.io-client'
 import { setPendingFriendsInvites, setFriends, setOnlineUsers } from '../store/actions/friendsActions'
 import store from '../store/store'
+import { updateDirectChatHistoryIfActive } from '../utils/chat'
 
 let socket = null
 
-
+// This function listens to events from the backend
 export const connectWithSocketServer = (userDetails) => {
     const jwtToken = userDetails.token
     socket = io('http://localhost:5002', {
@@ -36,4 +37,19 @@ export const connectWithSocketServer = (userDetails) => {
         const { onlineUsers } = data;
         store.dispatch(setOnlineUsers(onlineUsers))
     })
+
+    socket.on('direct-chat-history', (data) => {
+        updateDirectChatHistoryIfActive(data)
+    })
+}
+
+// This function will emit or send data to our server-side socket connection
+// The data or message will then be saved by the server
+export const sendDirectMessage = (data) => {
+    console.log(data)
+    socket.emit('direct-message', data)
+}
+
+export const getDirectChatHistory = (data) => {
+    socket.emit("direct-chat-history", data)
 }

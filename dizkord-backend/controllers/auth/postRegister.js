@@ -36,6 +36,7 @@ const postRegister = async (req, res) => {
 
         res.status(200).json({
             userDetails: {
+                _id: user._id,
                 email: user.email,
                 token: token,
                 username: user.username,
