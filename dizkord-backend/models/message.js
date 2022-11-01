@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 
 
 const messageSchema = new Schema({
-    auth: {
+    author: {
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
