@@ -11,7 +11,7 @@ const MainContainer = styled('div')({
 
 const MessagesHeader = ({ username = "" }) => {
     return (
-        <MainContainer>
+        <MainContainer className="message-header">
             <Avatar large username={username} />
             <Typography 
                 variant="h4"
