@@ -16,7 +16,7 @@ const MainContainer = styled('div')({
 
 // Mapping the state to props, we get the pendingFriendsInvite data when the action of SET_PENDING_FRIENDS_INVITE is executed
 const PendingInvitations = ({ pendingFriendsInvites }) => {
-    console.log("hi", pendingFriendsInvites)
+    
     return (
         <MainContainer>
             {pendingFriendsInvites.map(invite => (
