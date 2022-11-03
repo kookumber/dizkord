@@ -94,10 +94,6 @@ export const createServer = async (data) => {
     }
 }
 
-// export const createServer = (data) => {
-//     return axios.post('api/server/create', data)
-// }
-
 const checkResponseCode = (exception) => {
     const responseCode = exception?.response?.status
     if (responseCode) {
