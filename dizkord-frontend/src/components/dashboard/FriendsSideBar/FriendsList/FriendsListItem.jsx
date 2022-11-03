@@ -28,7 +28,6 @@ const FriendsListItem = ({ id, username, isOnline, setChosenChatDetails }) => {
                 position: 'relative',
                 paddingTop: '15px',
                 paddingBottom: '15px',
-                marginLeft: '-7px'
             }}
             sx={{
                 '&:hover': {
