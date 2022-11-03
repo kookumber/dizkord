@@ -81,6 +81,23 @@ export const rejectFriendInvite = async (data) => {
     }
 }
 
+export const createServer = async (data) => {
+    try {
+        console.log(data)
+        return await apiClient.post('/server/create', data)
+    } catch (exception) {
+        checkResponseCode(exception)
+        return {
+            error: true,
+            exception
+        }
+    }
+}
+
+// export const createServer = (data) => {
+//     return axios.post('api/server/create', data)
+// }
+
 const checkResponseCode = (exception) => {
     const responseCode = exception?.response?.status
     if (responseCode) {
