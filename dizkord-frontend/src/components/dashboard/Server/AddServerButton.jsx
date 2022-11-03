@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import { styled } from "@mui/system";
+import AddServerDialog from "./AddServerDialog";
 
 const Separator = styled('div')({
     width: '50%',
@@ -13,11 +14,23 @@ const Separator = styled('div')({
 
 
 const AddServerButton = () => {
+
+    const [isDialogOpen, setIsDialogOpen] = useState(false)
+
+    const handleOpenAddServerDialog = () => {
+        setIsDialogOpen(true)
+    }
+
+    const handleCloseAddServerDialog = () => {
+        setIsDialogOpen(false)
+    }
+
     return (
         <>
             <Separator />
             <Button
                 className='add-server-button'
+                onClick={handleOpenAddServerDialog}
                 sx={{
                     width: '48px',
                     height: '48px',
@@ -41,6 +54,10 @@ const AddServerButton = () => {
                     }}
                 />
             </Button>
+            <AddServerDialog 
+                isDialogOpen={isDialogOpen}
+                closeDialogHandler={handleCloseAddServerDialog}
+            />
         </>
     )
 
