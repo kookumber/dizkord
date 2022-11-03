@@ -5,11 +5,13 @@ import thunk from "redux-thunk";
 import authReducer from './reducers/authReducer'
 import friendsReducer from './reducers/friendsReducer'
 import chatReducer from './reducers/chatReducers'
+import serversReducer from './reducers/serversReducer'
 
 const rootReducer = combineReducers({
     auth: authReducer,
     friends: friendsReducer,
-    chat: chatReducer
+    chat: chatReducer,
+    usersServers: serversReducer
 })
 
 const store = createStore(

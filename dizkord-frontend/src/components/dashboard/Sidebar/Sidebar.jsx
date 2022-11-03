@@ -1,7 +1,9 @@
 import React from "react";
 import { styled } from "@mui/system";
 import MainButton from "./MainButton";
+import AddServerButton from "../Server/AddServerButton";
 import './sidebar.scss'
+import ServerList from "../Server/ServerList/ServerList";
 
 const MainContainer = styled('div')({
     width: "80px",
@@ -16,6 +18,8 @@ const Sidebar = () => {
     return (
         <MainContainer>
             <MainButton />
+            <ServerList />
+            <AddServerButton />
         </MainContainer>
     )
 }

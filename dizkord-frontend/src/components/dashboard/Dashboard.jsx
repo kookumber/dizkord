@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import { getActions } from "../../store/actions/authActions";
 import { connectWithSocketServer } from "../../realtimeCommunication/socketConnection";
 
+
 const Wrapper = styled('div')({
     width: '100%',
     height: '100vh',
