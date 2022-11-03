@@ -1,6 +1,6 @@
 import React from "react";
 import { styled } from "@mui/system";
-// import { connect } from "react-redux";
+import { connect } from "react-redux";
 import ServerListItem from "./ServerListItems";
 
 const DUMMY_SERVERS = [
@@ -41,15 +41,16 @@ const MainContainer = styled('div')({
     alignItems: 'center'
 })
 
-const ServerList = () => {
+const ServerList = ({ servers }) => {
+    // console.log("servers?", servers)
     return (
         <MainContainer className="servers-container">
             {
-                DUMMY_SERVERS.map((server) => {
+                servers.map((server) => {
                     return (
                         <ServerListItem 
-                            key={server.id}
-                            id={server.id}
+                            key={server._id}
+                            id={server._id}
                             serverName={server.serverName}
                             owner={server.owner}
                         />
@@ -60,4 +61,10 @@ const ServerList = () => {
     )
 }
 
-export default ServerList
+const mapStoreStateToProps = (state) => {
+    return {
+        ...state.usersServers,
+    }
+}
+
+export default connect(mapStoreStateToProps)(ServerList)
