@@ -10,6 +10,7 @@ import { getActions } from "../../store/actions/authActions";
 import { connectWithSocketServer } from "../../realtimeCommunication/socketConnection";
 
 
+
 const Wrapper = styled('div')({
     width: '100%',
     height: '100vh',
@@ -17,7 +18,7 @@ const Wrapper = styled('div')({
 })
 
 const Dashboard = ({ setUserDetails }) => {
-
+    
     useEffect(() => {
         const userDetails = localStorage.getItem('user')
 
