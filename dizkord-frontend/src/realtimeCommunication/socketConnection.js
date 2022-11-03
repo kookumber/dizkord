@@ -1,5 +1,6 @@
 import io from 'socket.io-client'
 import { setPendingFriendsInvites, setFriends, setOnlineUsers } from '../store/actions/friendsActions'
+import { setUsersServers } from '../store/actions/serverActions'
 import store from '../store/store'
 import { updateDirectChatHistoryIfActive } from '../utils/chat'
 
@@ -40,6 +41,12 @@ export const connectWithSocketServer = (userDetails) => {
 
     socket.on('direct-chat-history', (data) => {
         updateDirectChatHistoryIfActive(data)
+    })
+
+    socket.on('users-servers', (data) => {
+        const { usersServers } = data
+        store.dispatch(setUsersServers(usersServers))
+
     })
 }
 
