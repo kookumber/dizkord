@@ -3,6 +3,8 @@ import { Button } from "@mui/material";
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import './sidebar.scss'
 import { styled } from "@mui/system";
+import { useNavigate } from "react-router-dom";
+import { connect } from "react-redux";
 
 const Separator = styled('div')({
     width: '50%',
@@ -12,10 +14,18 @@ const Separator = styled('div')({
     marginTop: '10px'
 })
 
-const FriendsButton = () => {
+const FriendsButton = ({ friends }) => {
+
+    const navigate = useNavigate()
+    const handleClickRedirect = () => {
+        navigate(`/conversations/${friends[0].id}`)
+    }
+
+
     return (
         <>
         <Button
+            onClick={handleClickRedirect}
             className="friends-sidebar-button"
             sx={{
                 width: '48px',
@@ -40,4 +50,11 @@ const FriendsButton = () => {
     )
 }
 
-export default FriendsButton
+const mapStoreStateToProps = ({ friends }) => {
+    return {
+        ...friends
+    }
+}
+
+export default connect(mapStoreStateToProps)(FriendsButton)
+
