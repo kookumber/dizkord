@@ -4,6 +4,7 @@ import { Button } from "@mui/material";
 const ServerListItem = ({ serverName }) => {
     return (
         <Button
+            className="server-buttons"
             sx={{
                 width: '48px',
                 height: '48px',
