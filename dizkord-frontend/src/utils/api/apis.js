@@ -83,7 +83,6 @@ export const rejectFriendInvite = async (data) => {
 
 export const createServer = async (data) => {
     try {
-        console.log(data)
         return await apiClient.post('/server/create', data)
     } catch (exception) {
         checkResponseCode(exception)
