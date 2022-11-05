@@ -11,7 +11,11 @@ const reducer = (state = initState, action) => {
                 ...state,
                 servers: action.usersServers
             }
-        
+        case serverActions.SET_CURRENT_SERVER_DETAILS:
+            return {
+                ...state,
+                currentServer: action.currentServersDetails
+            }
         default:
             return state
     }

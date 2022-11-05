@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
 import { styled } from "@mui/system";
 import Sidebar from "./Sidebar/Sidebar";
-import FriendsSideBar from "./FriendsSideBar/FriendsSideBar";
 import Messenger from "./Messenger/Messenger";
 import AppBar from "./AppBar/AppBar";
 import { logout } from "../../utils/auth";
 import { connect } from "react-redux";
 import { getActions } from "../../store/actions/authActions";
+import { getActions as serverActions } from "../../store/actions/serverActions";
 import { connectWithSocketServer } from "../../realtimeCommunication/socketConnection";
-
 
 const Wrapper = styled('div')({
     width: '100%',
@@ -16,14 +15,15 @@ const Wrapper = styled('div')({
     display: 'flex',
 })
 
-const Dashboard = ({ setUserDetails }) => {
-
+const Dashboard = ({ setUserDetails, SubsideBar }) => {
+    
     useEffect(() => {
         const userDetails = localStorage.getItem('user')
+        
 
         if (!userDetails) {
             logout()
-            // window.location.pathname = 'login'
+            
         } else {
             setUserDetails(JSON.parse(userDetails))
             // if there is a user, only then can we connect with the socket server
@@ -35,17 +35,24 @@ const Dashboard = ({ setUserDetails }) => {
     return (
         <Wrapper>
             <Sidebar />
-            <FriendsSideBar />
+            <SubsideBar />
             <Messenger />
             <AppBar />
         </Wrapper>
     )
 }
 
-const mapActionsToProps = (dispatch) => {
+const mapStoreStateToProps = (state) => {
     return {
-        ...getActions(dispatch),
+        ...state.usersServers
     }
 }
 
-export default connect(null, mapActionsToProps)(Dashboard)
+const mapActionsToProps = (dispatch) => {
+    return {
+        ...getActions(dispatch),
+        ...serverActions(dispatch)
+    }
+}
+
+export default connect(mapStoreStateToProps, mapActionsToProps)(Dashboard)

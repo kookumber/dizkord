@@ -1,9 +1,33 @@
 import React from "react";
 import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { connect } from "react-redux";
+import { getActions } from "../../../../store/actions/serverActions";
 
-const ServerListItem = ({ serverName }) => {
+
+const ServerListItem = ({ 
+            serverName, 
+            serverId, 
+            owner,
+            serversChannels,
+            setCurrentServerDetails }) => {
+
+    const navigate = useNavigate()
+    
+    const handleClickRedirect = () => {
+        setCurrentServerDetails({
+            serverName: serverName,
+            serverId: serverId,
+            owner: owner,
+            channels: serversChannels
+        })
+        navigate(`/channels/${serversChannels[0]._id}`)
+    }
+
     return (
         <Button
+            onClick={handleClickRedirect}
+            className="server-button"
             sx={{
                 width: '48px',
                 height: '48px',
@@ -30,4 +54,10 @@ const ServerListItem = ({ serverName }) => {
     )
 }
 
-export default ServerListItem
+const mapActionsToProps = (dispatch) => {
+    return {
+        ...getActions(dispatch)
+    }
+}
+
+export default connect(null, mapActionsToProps)(ServerListItem)

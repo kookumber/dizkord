@@ -13,7 +13,7 @@ const MainContainer = styled('div')({
     justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: "#36393f",
-    borderBottom: '1px solid black',
+    borderBottom: '1px solid #1e2124',
     padding: '0 15px'
 })
 

@@ -8,8 +8,7 @@ const updateUsersServers = async (userId) => {
 
         const usersServers = await Server.find({
             participants: userId
-        })
-        console.log(usersServers)
+        }).populate('channels', '_id channelName description')
 
         const usersConnections = serverStore.getActiveConnections(userId)
         const io = serverStore.getSocketServerInstance()

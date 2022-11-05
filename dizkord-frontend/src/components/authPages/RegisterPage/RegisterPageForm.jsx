@@ -34,7 +34,6 @@ export const RegisterPageForm = ({ email, setEmail,
         passwordLabel = "PASSWORD"
     }
     
-    console.log(usernameLabel)
 
     return (
         <>

@@ -6,7 +6,10 @@ import { connect } from "react-redux";
 const MainContainer = styled('div')({
     flexGrow: 1,
     width: '100%',
-    height: '50%'
+    height: '50%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
 })
 
 // Function to find if our friends are part of list of online users

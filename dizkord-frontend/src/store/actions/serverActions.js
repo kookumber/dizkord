@@ -1,22 +1,22 @@
 import * as api from '../../utils/api/apis'
 
 export const serverActions = {
-    SET_SERVER_DETAILS: 'SERVER.SET_SERVER_DETAILS',
+    SET_CURRENT_SERVER_DETAILS: 'SERVER.SET_CURRENT_SERVER_DETAILS',
     SET_USERS_SERVERS: 'SERVER.SET_USERS_SERVERS',
     SET_ERROR_MESSAGE: 'SERVER.SET_ERROR_MESSAGE'
 }
 
 export const getActions = (dispatch) => {
     return {
-        setServerDetails: (serverDetails) => dispatch(setServerDetails(serverDetails)),
+        setCurrentServerDetails: (serverDetails) => dispatch(setCurrentServerDetails(serverDetails)),
         createServer: (serverDetails) => dispatch(createServer(serverDetails))
     }
 }
 
-const setServerDetails = (serverDetails) => {
+export const setCurrentServerDetails = (currentServersDetails) => {
     return {
-        type: serverActions.SET_SERVER_DETAILS,
-        serverDetails
+        type: serverActions.SET_CURRENT_SERVER_DETAILS,
+        currentServersDetails
     }
 }
 
