@@ -2,24 +2,7 @@ import React from "react";
 import { styled } from "@mui/system";
 import ChannelsListItem from "./ChannelsListItem";
 import { Typography } from "@mui/material";
-
-const DUMMY_CHANNELS = [
-    {   
-        id: 1,
-        channelName: 'general',
-        messages: ['Hi', 'Whassup']
-    },
-    {
-        id: 2,
-        channelName: 'Roundtable',
-        messages: ['Hi', 'Whassup']
-    },
-    {
-        id: 3,
-        channelName: 'awesomechannel',
-        messages: ['Hi', 'Whassup']
-    }
-]
+import AddChannelButton from "../AddChannelButton";
 
 const MainContainer = styled('div')({
     flexGrow: 1,
@@ -28,34 +11,41 @@ const MainContainer = styled('div')({
 
 const TextChannelsHeader = styled('div')({
     width: '100%',
-    marginTop: '5px'
+    marginTop: '15px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    verticalAlign: 'middle'
 })
 
-const ChannelsList = () => {
+const ChannelsList = ({ channels }) => {
     return (
         <>
-            <TextChannelsHeader>
+            
+            <TextChannelsHeader
+                className="text-channel-header"
+            >
                 <Typography
                     sx={{
                         color: '#8e9297',
                         fontWeight: 'bold',
                         fontSize: '12px',
                         marginLeft: '3px',
-                        marginTop: '10px'
                     }}
                 >
                     TEXT CHANNELS
                 </Typography>
+                <AddChannelButton />
             </TextChannelsHeader>
             <MainContainer>
-                {
-                    DUMMY_CHANNELS.map((channel, idx) => (
+                {   channels ? 
+                    channels.map((channel) => (
                         <ChannelsListItem 
-                            key={channel.id} 
-                            id={channel.id}
+                            key={channel._id} 
+                            id={channel._id}
                             channelName={channel.channelName}
                         />
-                    ))
+                    )) : null
                 }
             </MainContainer>
         </>

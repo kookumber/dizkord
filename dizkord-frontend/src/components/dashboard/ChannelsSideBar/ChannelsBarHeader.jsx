@@ -1,5 +1,4 @@
 import React from "react";
-import CustomPrimaryButton from "../../sharedComponents/CustomPrimaryButton";
 import { styled } from "@mui/system";
 import { Typography } from "@mui/material";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -19,7 +18,7 @@ const MainContainer = styled('div')({
     }
 })
 
-const ChannelsBarHeader = () => {
+const ChannelsBarHeader = ({ serverName }) => {
     return (
         <MainContainer>
             <Typography
@@ -30,7 +29,7 @@ const ChannelsBarHeader = () => {
                     marginLeft: '5px',
                     fontSize: '15px'
                 }}
-            >Channel Name</Typography>
+            >{serverName}</Typography>
             <KeyboardArrowDownIcon
                 sx={{
                     height: '48px',
