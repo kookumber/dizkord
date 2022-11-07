@@ -3,36 +3,31 @@ const Channel = require('../../models/channel')
 const serversUpdate = require('../../socketHandlers/updates/servers')
 
 const postServer = async (req, res) => {
-    try {
-        const { serverName, owner } = req.body
-        
-        const server = await Server.create({
-            serverName: serverName,
-            owner: owner,
-            channels: []
-        })
+    
+    const { serverName, owner } = req.body
+    
+    const server = await Server.create({
+        serverName: serverName,
+        owner: owner,
+        channels: []
+    })
+    
+    const generalChannel = await Channel.create({
+        channelName: 'general',
+        description: '',
+        channelServer: server._id,
+        messages: []
 
-        const generalChannel = await Channel.create({
-            channelName: 'general',
-            description: '',
-            channelServer: server._id,
-            messages: []
+    })
 
-        })
+    server.channels.push(generalChannel._id)
+    server.participants.push(owner)
+    server.save()
+    
+    // We'll call this function here to update the store state with servers user is apart of
+    serversUpdate.updateUsersServers(owner)
 
-        server.channels.push(generalChannel._id)
-        server.participants.push(owner)
-        server.save()
-
-        // We'll call this function here to update the store state with servers user is apart of
-        serversUpdate.updateUsersServers(owner)
-
-        return res.status(201).send('Server has been created!')
-
-    } catch (err) {
-        console.log(err)
-        return res.status(500).send("Error occured. Please try again")
-    }
+    return res.status(201).send('Server has been created!')
 }
 
 module.exports = postServer
