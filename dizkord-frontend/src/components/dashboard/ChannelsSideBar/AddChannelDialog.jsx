@@ -6,35 +6,45 @@ import {
     Dialog,
     DialogActions,
     DialogContent,
-    DialogContentText,
     DialogTitle,
     Typography,
     Button
 } from "@mui/material";
+import { getActions } from "../../../store/actions/channelActions";
 
-const AddChannelDialog = ({ userDetails, isDialogOpen, closeDialogHandler, createChannel = () => {} }) => {
-
+const AddChannelDialog = ({ currentServer, 
+                userDetails, 
+                isDialogOpen, 
+                closeDialogHandler, 
+                createChannel = () => {},
+                postChannel = () => {}
+            }) => {
+    
     const [channelName, setChannelName] = useState('')
-
+    
     const handleCloseDialog = () => {
         closeDialogHandler()
         setChannelName('')
     }
+    
+    const handleCreateChannel = () => {
+        // No association of the channel and user that created it but passing user
+        // In order to update users servers state
+        createChannel({
+            channelName: channelName,
+            channelServer: currentServer._id,
+            user: userDetails._id
+        })
+        
+        closeDialogHandler()
+    }
+
     return (
         <>
             <Dialog
                 className="add-channel-dialog"
                 open={isDialogOpen}
                 onClose={handleCloseDialog}
-                // sx={{
-                //     width: '500px',
-                //     paddingLeft: '15px',
-                //     paddingRight: '15px',
-                //     marginLeft: 'auto',
-                //     marginRight: 'auto',
-                //     overflow: 'none',
-                    
-                // }}
                 PaperProps={{
                     sx: {
                         width: '440px',
@@ -91,7 +101,6 @@ const AddChannelDialog = ({ userDetails, isDialogOpen, closeDialogHandler, creat
                         setValue={setChannelName}
                         placeholder="# new-channel"
                         additionalStyles={{
-                            backgroundColor: '#e3e5e8',
                             padding: 0,
                             border: 'none',
                             color: 'white',
@@ -115,10 +124,13 @@ const AddChannelDialog = ({ userDetails, isDialogOpen, closeDialogHandler, creat
                 </DialogContent>
                 <DialogActions
                     sx={{
-                        backgroundColor: '#36393f',
+                        backgroundColor: '#2f3136',
                         height: '40px',
                         borderRadius: '0px 0px 20px 20px',
-                        marginBottom: '15px'
+                        // marginBottom: '-5px',
+                        paddingBottom: '20px',
+                        paddingTop: '20px',
+                        marginTop: '15px',
                     }}
                 >
                     <Button
@@ -133,6 +145,7 @@ const AddChannelDialog = ({ userDetails, isDialogOpen, closeDialogHandler, creat
                         Cancel
                     </Button>
                     <CustomPrimaryButton
+                        onClick={handleCreateChannel}
                         label="Create Channel"
                         additionalStyles={{
                             width: '122px',
@@ -151,4 +164,18 @@ const AddChannelDialog = ({ userDetails, isDialogOpen, closeDialogHandler, creat
     )
 }
 
-export default AddChannelDialog
+const mapStoreStateToProps = (state) => {
+    return {
+        ...state.usersServers,
+        ...state.auth
+    }
+}
+
+const mapActionsToProps = (dispatch) => {
+    return {
+        ...getActions(dispatch)
+    }
+}
+
+
+export default connect(mapStoreStateToProps, mapActionsToProps)(AddChannelDialog)

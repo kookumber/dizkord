@@ -15,7 +15,7 @@ const TextChannelsHeader = styled('div')({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    verticalAlign: 'middle'
+    verticalAlign: 'middle',
 })
 
 const ChannelsList = ({ channels }) => {
