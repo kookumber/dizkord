@@ -45,7 +45,7 @@ const ChannelsListItem = ({ channelName, id }) => {
                 variant="subtitle1"
                 align="left"
             >
-                {channelName.toLowerCase()}
+                {channelName.toLowerCase().split(" ").join("-")}
             </Typography>
         </Button>
     )
