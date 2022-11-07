@@ -42,7 +42,7 @@ const login = (userDetails, navigate) => {
             localStorage.setItem('user', JSON.stringify(userDetails))
 
             dispatch(setUserDetails(userDetails))
-            navigate('/conversations')
+            navigate('/conversations/1')
         }
     }
 }
@@ -61,7 +61,7 @@ const register = (userDetails, navigate) => {
             localStorage.setItem('user', JSON.stringify(userDetails))
 
             dispatch(setUserDetails(userDetails))
-            navigate('/conversations')
+            navigate('/conversations/1')
         }
     }
 }

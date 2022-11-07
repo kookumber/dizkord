@@ -39,7 +39,6 @@ const createServer = (serverDetails) => {
         const response = await api.createServer(serverDetails)
 
         if (response.error) {
-            console.log("rep err", response)
             dispatch(setErrorMessage(response?.exception?.response?.data))
         } else {
             // const { serverDetails } = response?.data

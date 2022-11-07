@@ -5,7 +5,6 @@ const Server = require('../../models/server')
 // and the new connection handler to update list of servers
 const updateUsersServers = async (userId) => {
     try {
-
         const usersServers = await Server.find({
             participants: userId
         }).populate('channels', '_id channelName description')

@@ -17,7 +17,7 @@ const ServerListItem = ({
     const handleClickRedirect = () => {
         setCurrentServerDetails({
             serverName: serverName,
-            serverId: serverId,
+            _id: serverId,
             owner: owner,
             channels: serversChannels
         })

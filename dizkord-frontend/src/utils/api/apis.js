@@ -93,6 +93,18 @@ export const createServer = async (data) => {
     }
 }
 
+export const createChannel = async (data) => {
+    try {
+        return await apiClient.post('/channels/create', data)
+    } catch (exception) {
+        checkResponseCode(exception)
+        return {
+            error: true,
+            exception
+        }
+    }
+}
+
 const checkResponseCode = (exception) => {
     const responseCode = exception?.response?.status
     if (responseCode) {
