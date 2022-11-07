@@ -19,6 +19,11 @@ const postChannel = async (req, res) => {
     channelsServer.channels.push(newChannel._id)
     channelsServer.save()
 
+    // Run this to allow time to get new server data
+    await Server.find({
+        participants: user
+    }).populate('channels', '_id channelName description')
+    
     // Run this socket handler here to update the global state of servers
     // to reflect the new channel we created, allowing the react component to rerender
     serversUpdate.updateUsersServers(user)

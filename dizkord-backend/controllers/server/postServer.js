@@ -23,6 +23,11 @@ const postServer = async (req, res) => {
     server.channels.push(generalChannel._id)
     server.participants.push(owner)
     server.save()
+
+    // Run this to allow time to get new server data
+    await Server.find({
+        participants: owner
+    }).populate('channels', '_id channelName description')
     
     // We'll call this function here to update the store state with servers user is apart of
     serversUpdate.updateUsersServers(owner)
