@@ -1,11 +1,29 @@
 import React from "react";
 import { Button, Typography } from "@mui/material";
 import TagIcon from '@mui/icons-material/Tag';
+import { useNavigate } from 'react-router-dom'
+import { connect } from "react-redux";
+import { chatTypes, getActions } from "../../../../store/actions/chatActions";
+import { getActions as channelActions } from "../../../../store/actions/channelActions";
 
+const ChannelsListItem = ({ channelName, id, setChosenChatDetails, setCurrentChannel }) => {
 
-const ChannelsListItem = ({ channelName, id }) => {
+    const navigate = useNavigate()
+
+    const handleClick = () => {
+        // Need to set chosen chat details
+        setChosenChatDetails({ id: id, channelName: channelName}, chatTypes.GROUP);
+        
+        setCurrentChannel({
+            _id: id,
+            channelName: channelName
+        })
+        navigate(`/channels/${id}`)
+    }
+
     return (
         <Button
+            onClick={handleClick}
             sx={{
                 width: '100%',
                 height: '30px',
@@ -51,4 +69,11 @@ const ChannelsListItem = ({ channelName, id }) => {
     )
 }
 
-export default ChannelsListItem
+const mapActionsToProps = (dispatch) => {
+    return {
+        ...getActions(dispatch),
+        ...channelActions(dispatch)
+    }
+}
+
+export default connect(null, mapActionsToProps)(ChannelsListItem)
