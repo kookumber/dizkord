@@ -11,7 +11,8 @@ const MainContainer = styled('div')({
     overflow: 'auto',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
+    // justifyContent: 'flex-end'
 })
 
 const convertDateToHumanReadable = (date, format) => {
@@ -25,11 +26,11 @@ const convertDateToHumanReadable = (date, format) => {
     return format.replace(/mm|dd|yy|yyy/gi, (matched) => map[matched])
 }
 
-const Messages = ({ chosenChatDetails, messages }) => {
+const Messages = ({ chosenChatDetails, chatType, messages }) => {
     
     return (
         <MainContainer className="messages-wrapper">
-            <MessagesHeader username={chosenChatDetails?.username}/>
+            <MessagesHeader username={chosenChatDetails?.username} channelName={chosenChatDetails?.channelName}/>
             {
                 messages.map((message, idx) => {
 

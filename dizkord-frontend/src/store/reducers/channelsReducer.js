@@ -13,6 +13,11 @@ const reducer = (state = initState, action) => {
                 ...state,
                 newChannel: action.channelDetails
             }
+        case channelActions.SET_CURRENT_CHANNEL:
+            return {
+                ...state,
+                currentChannel: action.currentChannelDetails
+            }
         default:
             return state
     }

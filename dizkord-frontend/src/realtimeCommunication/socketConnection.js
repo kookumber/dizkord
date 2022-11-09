@@ -2,7 +2,7 @@ import io from 'socket.io-client'
 import { setPendingFriendsInvites, setFriends, setOnlineUsers } from '../store/actions/friendsActions'
 import { setUsersServers } from '../store/actions/serverActions'
 import store from '../store/store'
-import { updateDirectChatHistoryIfActive } from '../utils/chat'
+import { updateDirectChatHistoryIfActive, updateChannelChatHistoryIfActive } from '../utils/chat'
 
 let socket = null
 
@@ -43,6 +43,10 @@ export const connectWithSocketServer = (userDetails) => {
         updateDirectChatHistoryIfActive(data)
     })
 
+    socket.on('channel-chat-history', (data) => {
+        updateChannelChatHistoryIfActive(data)
+    })
+
     socket.on('users-servers', (data) => {
         const { usersServers } = data
         store.dispatch(setUsersServers(usersServers))
@@ -50,8 +54,9 @@ export const connectWithSocketServer = (userDetails) => {
     })
 }
 
-// This function will emit or send data to our server-side socket connection
-// The data or message will then be saved by the server
+// Socket.io enables bi-directional communication, thus allowing us to emit events
+// to the server, along with the data, which is this case will be messages
+// The below functions allow us to send messages and request data
 export const sendDirectMessage = (data) => {
     console.log(data)
     socket.emit('direct-message', data)
@@ -59,4 +64,12 @@ export const sendDirectMessage = (data) => {
 
 export const getDirectChatHistory = (data) => {
     socket.emit("direct-chat-history", data)
+}
+
+export const sendChannelMessage = (data) => {
+    socket.emit('channel-chat-message', data)
+}
+
+export const getChannelChatHistory = (data) => {
+    socket.emit('channel-chat-history', data)
 }

@@ -4,6 +4,9 @@ const disconnectHandler = require('./socketHandlers/disconnectHandler')
 const serverStore = require('./serverStore')
 const directMessageHandler = require('./socketHandlers/directMessageHandler')
 const directChatHistoryHandler = require('./socketHandlers/directChatHistoryHandler')
+const channelMessageHandler = require('./socketHandlers/channelMessageHandler')
+const channelChatHistoryHandler = require('./socketHandlers/channelChatHistoryHandler')
+
 // serverJS file will use the below function
 const registerSocketServer = (server) => {
     const io = require("socket.io")(server, {
@@ -27,8 +30,8 @@ const registerSocketServer = (server) => {
 
     // On connection, the socket will have all details of connected user
     io.on('connection', (socket) => {
-        console.log('User connected')
-        console.log(socket.id)
+        // console.log('User connected')
+        // console.log(socket.id)
         
         // New connection handler
         newConnectionHandler(socket, io)
@@ -43,6 +46,16 @@ const registerSocketServer = (server) => {
 
         socket.on('direct-chat-history', (data) => {
             directChatHistoryHandler(socket, data)
+        })
+
+        // This will listen to events for messages from the channel when messages are submitted
+        socket.on('channel-chat-message', (data) => {
+            channelMessageHandler(socket, data)
+        })
+
+        // This will update the chat history of the channel when event submitted from client
+        socket.on('channel-chat-history', (data) => {
+            channelChatHistoryHandler(socket, data)
         })
 
         socket.on('disconnect', () => {
