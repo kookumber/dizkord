@@ -1,5 +1,4 @@
 import * as api from '../../utils/api/apis'
-import { getActions as serverActions } from './serverActions'
 
 export const channelActions = {
     SET_CURRENT_CHANNEL: 'CHANNEL.SET_CURRENT_CHANNEL',
@@ -9,7 +8,8 @@ export const channelActions = {
 export const getActions = (dispatch) => {
     return {
         createChannel: (channelDetails) => dispatch(createChannel(channelDetails)),
-        postChannel: (channelDetails) => dispatch(postChannel(channelDetails))
+        postChannel: (channelDetails) => dispatch(postChannel(channelDetails)),
+        setCurrentChannel: (currentChannelDetails) => dispatch(setCurrentChannel(currentChannelDetails))
     }
 }
 

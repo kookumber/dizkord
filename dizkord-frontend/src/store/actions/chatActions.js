@@ -1,5 +1,3 @@
-import * as api from '../../utils/api/apis'
-
 
 export const chatTypes = {
     DIRECT: 'DIRECT',
@@ -8,6 +6,7 @@ export const chatTypes = {
 
 export const chatActions = {
     SET_CHOSEN_CHAT_DETAILS: 'CHAT.SET_CHOSEN_CHAT_DETAILS',
+    SET_CHOSEN_CHANNEL_DETAILS: 'CHAT.SET_CHOSEN_CHANNEL_DETAILS',
     SET_MESSAGES: 'CHAT.SET_MESSAGES',
     SET_CHAT_TYPE: 'CHAT.SET_CHAT_TYPE'
 }
@@ -23,6 +22,14 @@ export const setChosenChatDetails = (chatDetails, type) => {
         type: chatActions.SET_CHOSEN_CHAT_DETAILS,
         chatType: type,
         chatDetails,
+    }
+}
+
+export const setChosenChannelDetails = (channelDetails, type) => {
+    return {
+        type: chatActions.SET_CHOSEN_CHANNEL_DETAILS,
+        chatType: type,
+        channelDetails
     }
 }
 
