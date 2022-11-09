@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import { styled } from "@mui/system";
-import { Typography } from "@mui/material";
 import Messages from './Messages/Messages'
 import NewMessageInput from './NewMessageInput'
-import { getDirectChatHistory } from "../../../realtimeCommunication/socketConnection";
+import { getDirectChatHistory, getChannelChatHistory } from "../../../realtimeCommunication/socketConnection";
 
 const Wrapper = styled('div')({
     flexGrow: 1,
@@ -18,9 +17,17 @@ const MessengerContent = ({ chosenChatDetails }) => {
 
     // useEffect here will fetch chat history for specific user
     useEffect(() => {
-        getDirectChatHistory({
-            receiverUserId: chosenChatDetails.id,
-        })
+        if (chosenChatDetails.username) {
+            getDirectChatHistory({
+                receiverUserId: chosenChatDetails.id,
+            })
+        }
+
+        if (chosenChatDetails.channelName) {
+            getChannelChatHistory({
+                channelId: chosenChatDetails.id
+            })
+        }
     }, [chosenChatDetails])
 
     return (
