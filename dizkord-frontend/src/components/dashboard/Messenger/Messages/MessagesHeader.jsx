@@ -9,10 +9,18 @@ const MainContainer = styled('div')({
     marginTop: '10px'
 })
 
-const MessagesHeader = ({ username = "" }) => {
+const MessagesHeader = ({ username = "", channelName = "" }) => {
+    
+    const avatarText = username.length > 0 ? username : '#'
+    const headerText = username.length > 0 ? username : `Welcome to #${channelName}!`
+    const subText = username.length > 0 ? 
+            `This is the beginning of your message history with @${ username }` 
+            : 
+            `This is the start of the #${channelName.toLowerCase().split(' ').join('-')} channel.`
+    
     return (
         <MainContainer className="message-header">
-            <Avatar large username={username} />
+            <Avatar large username={avatarText} />
             <Typography 
                 variant="h4"
                 sx={{
@@ -22,7 +30,7 @@ const MessagesHeader = ({ username = "" }) => {
                     marginRight: '5px'
                 }}
             >
-                {username}
+                {headerText}
             </Typography>
             <Typography
                 sx={{
@@ -31,7 +39,7 @@ const MessagesHeader = ({ username = "" }) => {
                     marginRight: '5px'
                 }}
             >
-                This is the beginning of your message history with @{username}
+                {subText}
             </Typography>
         </MainContainer>
     )
