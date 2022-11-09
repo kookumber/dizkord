@@ -3,6 +3,7 @@ import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { getActions } from "../../../../store/actions/serverActions";
+import { getActions as chatActions } from '../../../../store/actions/chatActions'
 
 
 const ServerListItem = ({ 
@@ -10,7 +11,9 @@ const ServerListItem = ({
             serverId, 
             owner,
             serversChannels,
-            setCurrentServerDetails }) => {
+            setCurrentServerDetails,
+            setChosenChatDetails
+        }) => {
 
     const navigate = useNavigate()
     
@@ -21,6 +24,8 @@ const ServerListItem = ({
             owner: owner,
             channels: serversChannels
         })
+        console.log(serversChannels)
+        setChosenChatDetails({ id: serversChannels[0]._id, channelName: serversChannels[0].channelName })
         navigate(`/channels/${serversChannels[0]._id}`)
     }
 
@@ -56,7 +61,8 @@ const ServerListItem = ({
 
 const mapActionsToProps = (dispatch) => {
     return {
-        ...getActions(dispatch)
+        ...getActions(dispatch),
+        ...chatActions(dispatch)
     }
 }
 
