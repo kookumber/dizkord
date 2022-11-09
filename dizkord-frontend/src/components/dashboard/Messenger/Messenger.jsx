@@ -13,10 +13,11 @@ const MainContainer = styled('div')({
     marginTop: '48px'
 })
 
-const Messenger = ({ chosenChatDetails }) => {
+const Messenger = ({ chosenChatDetails, chatType }) => {
+    
     return (
         <MainContainer className="messenger-container">
-            { !chosenChatDetails ? <WelcomeMessage /> : <MessengerContent chosenChatDetails={chosenChatDetails}/>}
+            { !chosenChatDetails ? <WelcomeMessage /> : <MessengerContent chosenChatDetails={chosenChatDetails} chatType={chatType}/>}
         </MainContainer>
     )
 }
