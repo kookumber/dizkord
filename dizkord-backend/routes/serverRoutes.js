@@ -18,5 +18,11 @@ router.post(
     serverControllers.controllers.postServer
 )
 
+router.patch(
+    "/joinserver",
+    auth,
+    serverControllers.controllers.addServerParticipants
+)
+
 
 module.exports = router

@@ -93,6 +93,18 @@ export const createServer = async (data) => {
     }
 }
 
+export const addServerParticipants = async (data) => {
+    try {
+        const response = await apiClient.patch('/server/joinserver', data)
+        return response
+    } catch (exception) {
+        return {
+            error: true,
+            exception
+        }
+    }
+}
+
 export const createChannel = async (data) => {
     try {
         return await apiClient.post('/channels/create', data)

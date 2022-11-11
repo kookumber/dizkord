@@ -16,6 +16,11 @@ const reducer = (state = initState, action) => {
                 ...state,
                 currentServer: action.currentServersDetails
             }
+        case serverActions.SET_ERROR_MESSAGE:
+            return {
+                ...state,
+                error: action.errorMessage
+            }
         default:
             return state
     }
