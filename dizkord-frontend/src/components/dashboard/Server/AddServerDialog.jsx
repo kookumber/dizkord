@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import CustomPrimaryButton from "../../sharedComponents/CustomPrimaryButton";
 import InputWithLabel from "../../sharedComponents/InputWithLabels";
 import { getActions } from "../../../store/actions/serverActions";
@@ -8,13 +8,21 @@ import { Dialog,
          DialogContent,
          DialogContentText,
          DialogTitle,
-         Typography
+         Typography,
+         Button
 } from "@mui/material";
+import { styled } from "@mui/system";
 
-const AddServerDialog = ({ userDetails, isDialogOpen, closeDialogHandler, createServer = () => {} }) => {
+const AddServerDialog = ({ userDetails, 
+                           isDialogOpen, 
+                           closeDialogHandler,
+                           option,
+                           error, 
+                           addServerParticipants = () => {},
+                           createServer = () => {} }) => {
 
     const [serverName, setServerName] = useState('')
-
+    
     const handleCreateServer = () => {
         createServer({
             serverName: serverName,
@@ -23,20 +31,67 @@ const AddServerDialog = ({ userDetails, isDialogOpen, closeDialogHandler, create
         closeDialogHandler()
     }
 
+    const handleJoinServer = () => {
+        // Check if using full link or just passing in name/serverId
+        if (serverName.indexOf('dizkord') !== -1) {
+            let serverDetail = serverName.slice(19)
+            addServerParticipants({ serverSearch: serverDetail, userId: userDetails._id })
+        } else {
+            addServerParticipants({ serverSearch: serverName, userId: userDetails._id })
+        }
+        closeDialogHandler()
+    }
+
     const handleCloseDialog = () => {
         closeDialogHandler()
         setServerName('')
     }
+
+    const headerText = option === "CREATE" ? "Create your server" : "Join a Server"
+    const subText = option === "CREATE" ? 
+                    "Give your new server personality with a name. You can always change it later."
+                    :
+                    "Enter an invite below to join an existing server"
+    
+    const inputLabelText = option === "CREATE" ? "SERVER NAME" : "INVITE LINK"
+    const buttonLabelText = option === "CREATE" ? "Create" : "Join Server"
+
+    const ExampleContainer = styled('div')({
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        marginTop: '10px',
+    })
+    
+    const exampleText = option === "CREATE" ? null :
+        <ExampleContainer>
+            <DialogContentText
+                sx={{
+                    fontSize: '13px',
+                    fontWeight: 'bold',
+                    color: 'black'
+                }}
+            >
+                INVITES SHOULD LOOK LIKE
+            </DialogContentText>
+            <DialogContentText sx={{ fontSize: '13px' }}> serverName </DialogContentText>
+            <DialogContentText sx={{ fontSize: '13px' }}> https://dizkord.gg/serverName </DialogContentText>
+            <DialogContentText sx={{ fontSize: '13px' }}> https://dizkord.gg/serverIdasdasdsa </DialogContentText>
+
+        </ExampleContainer>
 
     return (
         <div>
             <Dialog
                 open={isDialogOpen}
                 onClose={handleCloseDialog}
-                sx={{
-                    width: '440px',
-                    marginLeft: 'auto',
-                    marginRight: 'auto'
+                PaperProps={{
+                    sx: {
+                        width: '420px',
+                        marginLeft: 'auto',
+                        marginRight: 'auto'
+                    }
                 }}
             >
                 <DialogTitle
@@ -54,7 +109,7 @@ const AddServerDialog = ({ userDetails, isDialogOpen, closeDialogHandler, create
                             fontWeight: 'bold'
                         }}
                     >
-                        Customize your server
+                        { headerText }
                     </Typography>
                 </DialogTitle>
                 <DialogContent
@@ -62,21 +117,22 @@ const AddServerDialog = ({ userDetails, isDialogOpen, closeDialogHandler, create
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        flexDirection: 'column'
+                        flexDirection: 'column',
+                        marginTop: '-10px'
                     }}
                 >
                     <DialogContentText
                         sx={{
-                            fontSize: '15px',
+                            fontSize: '14px',
                             display: 'flex',
                             textAlign: 'center',
                             marginTop: '-5px'
                         }}
                     >
-                        Give your new server personality with a name. You can always change it later.
+                        { subText }
                     </DialogContentText>
                     <InputWithLabel 
-                        label="SERVER NAME"
+                        label={inputLabelText}
                         type="text"
                         value={serverName}
                         setValue={setServerName}
@@ -95,20 +151,35 @@ const AddServerDialog = ({ userDetails, isDialogOpen, closeDialogHandler, create
                             marginTop: '15px'
                         }}
                     />
+                    { exampleText }
                 </DialogContent>
                 <DialogActions
                     sx={{
-                        padding: '0 20px 20px'
+                        padding: '15px 20px 15px',
+                        backgroundColor: '#f2f3f5',
+                        display: 'flex',
+                        justifyContent: 'space-between'
                     }}
                 >
+                    <Button
+                        sx={{
+                            color: '#747f8d',
+                            textTransform: 'none',
+                            fontWeight: 'bold',
+                            marginLeft: '-15px'
+                        }}
+                        onClick={handleCloseDialog}
+                    >
+                        Back
+                    </Button>
                     <CustomPrimaryButton 
-                        onClick={handleCreateServer}
-                        label="Create"
+                        onClick={option === "CREATE" ? handleCreateServer : handleJoinServer}
+                        label={buttonLabelText}
                         additionalStyles={{
                             width: '96px',
                             height: '38px',
                             backgroundColor: '#5865F2',
-                            fontSize: '14px',
+                            fontSize: '11px',
                             fontWeight: 'bold'
                         }}
                     />
@@ -119,9 +190,10 @@ const AddServerDialog = ({ userDetails, isDialogOpen, closeDialogHandler, create
     )
 }
 
-const mapStoreStateToProps = ({ auth }) => {
+const mapStoreStateToProps = ({ auth, usersServers }) => {
     return {
-        ...auth
+        ...auth,
+        ...usersServers
     }
 }
 
