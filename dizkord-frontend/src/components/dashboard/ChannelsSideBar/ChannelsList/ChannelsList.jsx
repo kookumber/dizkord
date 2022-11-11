@@ -18,7 +18,7 @@ const TextChannelsHeader = styled('div')({
     verticalAlign: 'middle',
 })
 
-const ChannelsList = ({ channels }) => {
+const ChannelsList = ({ channels, serverId }) => {
     return (
         <>
             
@@ -44,6 +44,7 @@ const ChannelsList = ({ channels }) => {
                             key={channel._id} 
                             id={channel._id}
                             channelName={channel.channelName}
+                            serverId={serverId}
                         />
                     )) : null
                 }

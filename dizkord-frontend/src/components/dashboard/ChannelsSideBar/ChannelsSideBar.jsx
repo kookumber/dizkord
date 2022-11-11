@@ -20,7 +20,7 @@ const MainContainer = styled('div')({
 
 const ChannelsSideBar = ({ servers, currentServer, setCurrentServerDetails }) => {
     
-    const { id } = useParams()
+    const { channelId } = useParams()
     
     useEffect(() => {
         const currentPath = window.location.pathname
@@ -28,7 +28,7 @@ const ChannelsSideBar = ({ servers, currentServer, setCurrentServerDetails }) =>
         let currServer = {}
         servers.forEach((server) => {
             server.channels.forEach(channel => {
-                if (channel._id === id) {
+                if (channel._id === channelId) {
                     currServer = server
                 }
             })
@@ -44,7 +44,7 @@ const ChannelsSideBar = ({ servers, currentServer, setCurrentServerDetails }) =>
             { currentServer ? (
             <ChannelsBarHeader serverName={currentServer.serverName}/>
             )  : null }
-            { currentServer ? <ChannelsList channels={currentServer.channels}/> : null }
+            { currentServer ? <ChannelsList channels={currentServer.channels} serverId={currentServer._id}/> : null }
         </MainContainer>
     )
 }

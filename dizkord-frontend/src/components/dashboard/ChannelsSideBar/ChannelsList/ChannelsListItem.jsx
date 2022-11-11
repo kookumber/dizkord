@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { chatTypes, getActions } from "../../../../store/actions/chatActions";
 import { getActions as channelActions } from "../../../../store/actions/channelActions";
 
-const ChannelsListItem = ({ channelName, id, setChosenChatDetails, setCurrentChannel }) => {
+const ChannelsListItem = ({ channelName, id, setChosenChatDetails, setCurrentChannel, serverId }) => {
 
     const navigate = useNavigate()
 
@@ -18,7 +18,7 @@ const ChannelsListItem = ({ channelName, id, setChosenChatDetails, setCurrentCha
             _id: id,
             channelName: channelName
         })
-        navigate(`/channels/${id}`)
+        navigate(`/channels/${serverId}/${id}`)
     }
 
     return (
