@@ -9,7 +9,8 @@ export const serverActions = {
 export const getActions = (dispatch) => {
     return {
         setCurrentServerDetails: (serverDetails) => dispatch(setCurrentServerDetails(serverDetails)),
-        createServer: (serverDetails) => dispatch(createServer(serverDetails))
+        createServer: (serverDetails) => dispatch(createServer(serverDetails)),
+        addServerParticipants: (serverDetails) => dispatch(addServerParticipants(serverDetails))
     }
 }
 
@@ -43,6 +44,19 @@ const createServer = (serverDetails) => {
         } else {
             // const { serverDetails } = response?.data
             console.log('Server has been created!')
+        }
+    }
+}
+
+const addServerParticipants = (serverDetails) => {
+    return async (dispatch) => {
+        const response = await api.addServerParticipants(serverDetails)
+
+        if (response.error) {
+            dispatch(setErrorMessage(response?.exception?.response?.data))
+        } else {
+            // const { serverDetails } = response?.data
+            console.log('You have been added to the server!')
         }
     }
 }
