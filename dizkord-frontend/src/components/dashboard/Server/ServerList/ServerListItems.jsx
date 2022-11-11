@@ -26,7 +26,7 @@ const ServerListItem = ({
         })
         console.log(serversChannels)
         setChosenChatDetails({ id: serversChannels[0]._id, channelName: serversChannels[0].channelName })
-        navigate(`/channels/${serversChannels[0]._id}`)
+        navigate(`/channels/${serverId}/${serversChannels[0]._id}`)
     }
 
     return (
