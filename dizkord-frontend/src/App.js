@@ -20,7 +20,7 @@ function App() {
               <Route exact path="/login" element={<LoginPage />} />
               <Route exact path="/register" element={<RegisterPage />} />
               <Route exact path="/conversations/:id" element={<Dashboard SubsideBar={FriendsSideBar}/>} />
-              <Route exact path="/channels/:id" element={<Dashboard SubsideBar={ChannelsSideBar} />} />
+              <Route exact path="/channels/:serverId/:channelId" element={<Dashboard SubsideBar={ChannelsSideBar} />} />
               <Route path="/" element={<Dashboard SubsideBar={FriendsSideBar} />} />
           </Routes>
       </Router>
