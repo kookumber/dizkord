@@ -57,6 +57,7 @@ const AddServerButton = () => {
             <AddServerDialog 
                 isDialogOpen={isDialogOpen}
                 closeDialogHandler={handleCloseAddServerDialog}
+                option="CREATE"
             />
         </>
     )
