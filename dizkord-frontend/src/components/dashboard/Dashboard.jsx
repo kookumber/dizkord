@@ -8,6 +8,8 @@ import { connect } from "react-redux";
 import { getActions } from "../../store/actions/authActions";
 import { getActions as serverActions } from "../../store/actions/serverActions";
 import { connectWithSocketServer } from "../../realtimeCommunication/socketConnection";
+import FriendsAppBar from "./AppBar/FriendsAppBar";
+
 
 const Wrapper = styled('div')({
     width: '100%',
@@ -17,6 +19,16 @@ const Wrapper = styled('div')({
 
 const Dashboard = ({ setUserDetails, SubsideBar }) => {
     
+    const pathname = window.location.pathname
+
+    let appBarToDisplay = null
+
+    if (pathname.indexOf('conversations') > -1) {
+        appBarToDisplay = <FriendsAppBar />
+    } else {
+        appBarToDisplay = <AppBar />
+    }
+
     useEffect(() => {
         const userDetails = localStorage.getItem('user')
         
@@ -37,7 +49,7 @@ const Dashboard = ({ setUserDetails, SubsideBar }) => {
             <Sidebar />
             <SubsideBar />
             <Messenger />
-            <AppBar />
+            {appBarToDisplay}
         </Wrapper>
     )
 }
