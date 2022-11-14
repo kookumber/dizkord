@@ -1,7 +1,7 @@
 import React from "react";
 import { styled } from "@mui/system";
 import { Typography } from "@mui/material";
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import ServerDropdownMenu from "../Server/ServerDropdownMenu";
 
 const MainContainer = styled('div')({
     height: '48px',
@@ -30,12 +30,13 @@ const ChannelsBarHeader = ({ serverName }) => {
                     fontSize: '15px'
                 }}
             >{serverName}</Typography>
-            <KeyboardArrowDownIcon
+            {/* <KeyboardArrowDownIcon
                 sx={{
                     height: '48px',
                     color: '#8e9297'
                 }}
-            />
+            /> */}
+            <ServerDropdownMenu />
         </MainContainer>
     )
 }
