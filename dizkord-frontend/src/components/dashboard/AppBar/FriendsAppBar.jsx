@@ -1,8 +1,7 @@
 import React from "react";
 import { styled } from "@mui/system";
 import ChosenOptionLabel from "./ChosenOptionLabel";
-import { Button } from "@mui/material";
-import VideocamIcon from '@mui/icons-material/Videocam';
+import CreateChatRoomButton from "../ChatRoom/CreateChatRoomButton";
 
 const MainContainer = styled('div')({
     position: "absolute",
@@ -19,19 +18,13 @@ const MainContainer = styled('div')({
 })
 
 const FriendsAppBar = () => {
+
+
+
     return (
         <MainContainer>
             <ChosenOptionLabel />
-            <Button>
-                <VideocamIcon
-                    sx={{
-                        color: '#96989D',
-                        '&:hover': {
-                            color: 'white'
-                        }
-                    }}
-                />
-            </Button>
+            <CreateChatRoomButton />
         </MainContainer>
     )
 }

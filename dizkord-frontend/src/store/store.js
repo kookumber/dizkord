@@ -7,13 +7,15 @@ import friendsReducer from './reducers/friendsReducer'
 import chatReducer from './reducers/chatReducers'
 import serversReducer from './reducers/serversReducer'
 import channelsReducer from './reducers/channelsReducer'
+import chatRoomReducer from './reducers/chatRoomReducer'
 
 const rootReducer = combineReducers({
     auth: authReducer,
     friends: friendsReducer,
     chat: chatReducer,
     usersServers: serversReducer,
-    channels: channelsReducer
+    channels: channelsReducer,
+    chatRoom: chatRoomReducer
 })
 
 const store = createStore(
