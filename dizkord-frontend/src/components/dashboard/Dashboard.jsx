@@ -9,6 +9,7 @@ import { getActions } from "../../store/actions/authActions";
 import { getActions as serverActions } from "../../store/actions/serverActions";
 import { connectWithSocketServer } from "../../realtimeCommunication/socketConnection";
 import FriendsAppBar from "./AppBar/FriendsAppBar";
+import ChatRoom from "./ChatRoom/ChatRoom";
 
 
 const Wrapper = styled('div')({
@@ -17,7 +18,7 @@ const Wrapper = styled('div')({
     display: 'flex',
 })
 
-const Dashboard = ({ setUserDetails, SubsideBar }) => {
+const Dashboard = ({ setUserDetails, SubsideBar, isUserInRoom }) => {
     
     const pathname = window.location.pathname
 
@@ -50,13 +51,15 @@ const Dashboard = ({ setUserDetails, SubsideBar }) => {
             <SubsideBar />
             <Messenger />
             {appBarToDisplay}
+            {isUserInRoom && <ChatRoom />}
         </Wrapper>
     )
 }
 
 const mapStoreStateToProps = (state) => {
     return {
-        ...state.usersServers
+        ...state.usersServers,
+        ...state.chatRoom
     }
 }
 
