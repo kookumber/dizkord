@@ -4,12 +4,17 @@ import Avatar from "../../../sharedComponents/Avatar";
 import OnlineIndicator from "./OnlineIndicator";
 import { chatTypes, getActions } from "../../../../store/actions/chatActions";
 import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 
 const FriendsListItem = ({ id, username, isOnline, setChosenChatDetails }) => {
 
+    const navigate = useNavigate()
+    // console.log(setChose pnChatDetails)
+
     const handleChooseActiveConversation = () => {
         setChosenChatDetails({ id: id, username: username}, chatTypes.DIRECT)
+        navigate(`/conversations/${id}`)
     }
 
     return (
