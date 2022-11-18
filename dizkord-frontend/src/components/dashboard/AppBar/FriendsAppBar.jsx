@@ -2,6 +2,7 @@ import React from "react";
 import { styled } from "@mui/system";
 import ChosenOptionLabel from "./ChosenOptionLabel";
 import CreateChatRoomButton from "../ChatRoom/CreateChatRoomButton";
+import DropdownMenu from "./DropdownMenu";
 
 const MainContainer = styled('div')({
     position: "absolute",
@@ -24,7 +25,10 @@ const FriendsAppBar = () => {
     return (
         <MainContainer>
             <ChosenOptionLabel />
-            <CreateChatRoomButton />
+            <div style={{ display: 'flex' }}>
+                <CreateChatRoomButton />
+                <DropdownMenu />
+            </div>
         </MainContainer>
     )
 }
