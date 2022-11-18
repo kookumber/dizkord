@@ -23,9 +23,9 @@ const MainContainer = styled('div')({
 const ChatRoomButtons = () => {
     return (
         <MainContainer>
+            <CameraButton />
             <ScreenShareButton />
             <MicButton />
-            <CameraButton />
             <CloseRoomButton />
         </MainContainer>
     )

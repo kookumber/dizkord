@@ -16,3 +16,17 @@ export const setOpenRoom = (isUserRoomCreator = false, isUserInRoom = false) => 
         isUserInRoom
     }
 }
+
+export const setRoomDetails = (roomDetails) => {
+    return {
+        type: chatRoomActions.SET_ROOM_DETAILS,
+        roomDetails
+    }
+}
+
+export const setActiveRooms = (activeRooms) => {
+    return {
+        type: chatRoomActions.SET_ACTIVE_ROOMS,
+        activeRooms
+    }
+}

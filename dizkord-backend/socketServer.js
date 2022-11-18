@@ -6,6 +6,8 @@ const directMessageHandler = require('./socketHandlers/directMessageHandler')
 const directChatHistoryHandler = require('./socketHandlers/directChatHistoryHandler')
 const channelMessageHandler = require('./socketHandlers/channelMessageHandler')
 const channelChatHistoryHandler = require('./socketHandlers/channelChatHistoryHandler')
+const roomCreateHandler = require('./socketHandlers/roomCreateHandler')
+const roomJoinHandler = require('./socketHandlers/roomJoinHandler')
 
 // serverJS file will use the below function
 const registerSocketServer = (server) => {
@@ -56,6 +58,15 @@ const registerSocketServer = (server) => {
         // This will update the chat history of the channel when event submitted from client
         socket.on('channel-chat-history', (data) => {
             channelChatHistoryHandler(socket, data)
+        })
+
+        // roomCreateHandler will emit event with new room
+        socket.on('room-create', () => {
+            roomCreateHandler(socket)
+        })
+
+        socket.on('room-join', (data) => {
+            roomJoinHandler(socket, data)
         })
 
         socket.on('disconnect', () => {

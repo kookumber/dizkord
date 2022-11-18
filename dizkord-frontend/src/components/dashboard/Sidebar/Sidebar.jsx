@@ -5,20 +5,53 @@ import AddServerButton from "../Server/AddServerButton";
 import './sidebar.scss'
 import ServerList from "../Server/ServerList/ServerList";
 import JoinServerButton from "../Server/JoinServerButton";
+import { connect } from "react-redux";
+import ActiveRoomButton from "./ActiveRoomButton";
 
 const MainContainer = styled('div')({
     width: "80px",
     height: "100%",
-    display: "flex",
+    display: 'flex',
     flexDirection: "column",
+    justifyContent: 'flex-start',
     alignItems: "center",
-    backgroundColor: "#202225"
+    backgroundColor: "#202225",
+    overflow: 'scroll',
+      
 })
 
-const Sidebar = () => {
+const ChatRoomButtonsContainers = styled('div')({
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '200px',
+    overflowY: 'scroll'
+})
+
+const Separator = styled('div')({
+    width: '50%',
+    backgroundColor: '#4F545C7A',
+    height: '3px',
+    position: 'relative',
+    marginTop: '10px'
+})
+
+const Sidebar = ({ activeRooms, isUserInRoom }) => {
     return (
-        <MainContainer>
+        <MainContainer className="side-bar-container">
             <FriendsButton />
+            {activeRooms.map((room) => (
+                <ActiveRoomButton 
+                    key={room.roomId}
+                    roomId={room.roomId}
+                    creatorUsername={room.creatorUsername}
+                    numberOfParticipants={room.participants.length}
+                    isUserInRoom={isUserInRoom}
+                />
+            ))}
+                {/* <Separator /> */}
             <ServerList />
             <AddServerButton />
             <JoinServerButton />
@@ -26,4 +59,10 @@ const Sidebar = () => {
     )
 }
 
-export default Sidebar
+const mapStoreStateToProps = ({ chatRoom }) => {
+    return {
+        ...chatRoom
+    }
+}
+
+export default connect(mapStoreStateToProps)(Sidebar)

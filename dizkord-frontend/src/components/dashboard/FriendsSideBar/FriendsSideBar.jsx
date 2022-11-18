@@ -4,6 +4,8 @@ import AddFriendButton from './AddFriendButton'
 import FriendsTitle from "./FriendsTitle";
 import FriendsList from "./FriendsList/FriendsList";
 import PendingInvitations from "./PendingInvitations/PendingInvitations";
+import FriendsSummaryButton from "./FriendsList/FriendsSummaryButton";
+
 
 const MainContainer = styled('div')({
     width: "224px",
@@ -20,6 +22,7 @@ const FriendsSideBar = () => {
     return (
         <MainContainer>
             <AddFriendButton />
+            <FriendsSummaryButton />
             <FriendsTitle title="Private Messages"/>
             <FriendsList />
             <FriendsTitle title="Invitations" />
