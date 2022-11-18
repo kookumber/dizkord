@@ -8,16 +8,15 @@ const MainContainer = styled('div')({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
 })
 
 const ServerList = ({ servers }) => {
     
     return (
-        <MainContainer className="servers-container">
-            {
-                servers.map((server) => {
-                    return (
+        // <MainContainer className="servers-container">
+            <>
+                {servers.map((server) => (
                         <ServerListItem 
                             key={server._id}
                             serverId={server._id}
@@ -25,10 +24,9 @@ const ServerList = ({ servers }) => {
                             owner={server.owner}
                             serversChannels={server.channels}
                         />
-                    )
-                })
-            }
-        </MainContainer>
+                ))}
+            </>
+        // </MainContainer>
     )
 }
 
