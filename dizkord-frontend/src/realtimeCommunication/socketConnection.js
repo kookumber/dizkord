@@ -3,6 +3,7 @@ import { setPendingFriendsInvites, setFriends, setOnlineUsers } from '../store/a
 import { setUsersServers } from '../store/actions/serverActions'
 import store from '../store/store'
 import { updateDirectChatHistoryIfActive, updateChannelChatHistoryIfActive } from '../utils/chat'
+import * as chatRoomHandler from './chatRoomHandler'
 
 let socket = null
 
@@ -50,7 +51,15 @@ export const connectWithSocketServer = (userDetails) => {
     socket.on('users-servers', (data) => {
         const { usersServers } = data
         store.dispatch(setUsersServers(usersServers))
+    })
 
+    socket.on('room-create', (data) => {
+        // Backend will emit data for new chat room details
+        chatRoomHandler.newRoomCreated(data)
+    })
+
+    socket.on('active-rooms', (data) => {
+        chatRoomHandler.updateActiveRooms(data)
     })
 }
 
@@ -72,4 +81,13 @@ export const sendChannelMessage = (data) => {
 
 export const getChannelChatHistory = (data) => {
     socket.emit('channel-chat-history', data)
+}
+
+export const createNewRoom = () => {
+    socket.emit('room-create')
+}
+
+// Will get called in the chatRoomHandler on the frontend from the parallel function
+export const joinChatRoom = (data) => {
+    socket.emit('room-join', data)
 }
