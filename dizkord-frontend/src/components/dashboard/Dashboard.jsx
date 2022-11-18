@@ -10,6 +10,7 @@ import { getActions as serverActions } from "../../store/actions/serverActions";
 import { connectWithSocketServer } from "../../realtimeCommunication/socketConnection";
 import FriendsAppBar from "./AppBar/FriendsAppBar";
 import ChatRoom from "./ChatRoom/ChatRoom";
+import FriendsSummaryAppBar from "./AppBar/FriendsSummaryAppBar/FriendsSummaryAppBar";
 
 
 const Wrapper = styled('div')({
@@ -23,8 +24,9 @@ const Dashboard = ({ setUserDetails, SubsideBar, isUserInRoom }) => {
     const pathname = window.location.pathname
 
     let appBarToDisplay = null
-
-    if (pathname.indexOf('conversations') > -1) {
+    if (pathname === '/conversations/@me') {
+        appBarToDisplay = <FriendsSummaryAppBar />
+    } else if (pathname.indexOf('conversations') > -1) {
         appBarToDisplay = <FriendsAppBar />
     } else {
         appBarToDisplay = <AppBar />
