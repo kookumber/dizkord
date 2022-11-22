@@ -109,9 +109,9 @@ const leaveActiveRoom = (roomId, participantsSocketId) => {
         const copyOfRoom = {...activeRoom}
         // Once we get copy of room, filter out the participant using socketId
         // This represents the user leaving the room, i.e. no longer participant
-        copyOfRoom.participants = copyOfRoom.participants.filter(participant => {
+        copyOfRoom.participants = copyOfRoom.participants.filter(participant => 
             participant.socketId !== participantsSocketId
-        })
+        )
         // Remove the room based on roomId passed from the activeRooms array
         activeRooms = activeRooms.filter((room) => {
             room.roomId !== roomId
