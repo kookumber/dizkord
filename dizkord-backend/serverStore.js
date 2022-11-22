@@ -101,6 +101,32 @@ const joinActiveRoom = (roomId, newParticipant) => {
     activeRooms.push(updatedRoom)
 }
 
+const leaveActiveRoom = (roomId, participantsSocketId) => {
+    // Find the room in array of active Rooms
+    const activeRoom = activeRooms.find((room) => room.roomId === roomId)
+    // If we can find the room, make a copy of room and update participants list
+    if (activeRoom) {
+        const copyOfRoom = {...activeRoom}
+        // Once we get copy of room, filter out the participant using socketId
+        // This represents the user leaving the room, i.e. no longer participant
+        copyOfRoom.participants = copyOfRoom.participants.filter(participant => {
+            participant.socketId !== participantsSocketId
+        })
+        // Remove the room based on roomId passed from the activeRooms array
+        activeRooms = activeRooms.filter((room) => {
+            room.roomId !== roomId
+        })
+        // Now we check if that room still has anybody in the room
+        // If yes, we can add the copy of the room we made to the activeRooms array
+        // with the updated participants list. If nobody in room, we've deleted the room already so do nothing
+        if (copyOfRoom.participants.length > 0) {
+            activeRooms.push(copyOfRoom)
+        }
+    }
+
+
+}
+
 module.exports = {
     addNewConnectedUser,
     removeConnectedUser,
@@ -111,5 +137,6 @@ module.exports = {
     addNewActiveRoom,
     getActiveRooms,
     getActiveRoom,
-    joinActiveRoom
+    joinActiveRoom,
+    leaveActiveRoom
 }
