@@ -40,3 +40,18 @@ export const joinChatRoom = (roomId) => {
 
     socketConnection.joinChatRoom({ roomId })
 }
+
+export const leaveChatRoom = () => {
+    // Since we set details for the video chat room we've joined
+    // we can get the id from the storeState to leave
+    const roomId = store.getState().chatRoom.roomDetails.roomId
+
+    // Leave the chatroom
+    socketConnection.leaveChatRoom({ roomId })
+
+    // Set room details in redux state to null
+    store.dispatch(setRoomDetails(null))
+    // Indicate the current user is not in the chat room or is the creator in
+    // order to close
+    store.dispatch(setOpenRoom(false, false))
+}

@@ -8,6 +8,7 @@ const channelMessageHandler = require('./socketHandlers/channelMessageHandler')
 const channelChatHistoryHandler = require('./socketHandlers/channelChatHistoryHandler')
 const roomCreateHandler = require('./socketHandlers/roomCreateHandler')
 const roomJoinHandler = require('./socketHandlers/roomJoinHandler')
+const roomLeaveHandler = require('./socketHandlers/roomLeaveHandler')
 
 // serverJS file will use the below function
 const registerSocketServer = (server) => {
@@ -45,7 +46,7 @@ const registerSocketServer = (server) => {
         socket.on('direct-message', (data) => {
             directMessageHandler(socket, data)
         })
-
+        
         socket.on('direct-chat-history', (data) => {
             directChatHistoryHandler(socket, data)
         })
@@ -68,7 +69,10 @@ const registerSocketServer = (server) => {
         socket.on('room-join', (data) => {
             roomJoinHandler(socket, data)
         })
-
+        
+        socket.on('room-leave', (data) => {
+            roomLeaveHandler(socket, data)
+        })
         socket.on('disconnect', () => {
             disconnectHandler(socket)
         })
