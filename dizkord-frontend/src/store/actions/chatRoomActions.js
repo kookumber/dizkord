@@ -30,3 +30,10 @@ export const setActiveRooms = (activeRooms) => {
         activeRooms
     }
 }
+
+export const setLocalStream = (stream) => {
+    return {
+        type: chatRoomActions.SET_LOCAL_STREAM,
+        stream
+    }
+}

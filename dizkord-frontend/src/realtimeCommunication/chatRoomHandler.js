@@ -1,10 +1,18 @@
 import store from "../store/store"
 import { setActiveRooms, setOpenRoom, setRoomDetails } from "../store/actions/chatRoomActions"
 import * as socketConnection from './socketConnection'
+import * as webRTCHandler from './webRTCHandler'
 
 export const createNewChatRoom = () => {
-    store.dispatch(setOpenRoom(true, true))
-    socketConnection.createNewRoom()
+    const successCallback = () => {
+        store.dispatch(setOpenRoom(true, true))
+        socketConnection.createNewRoom()
+    }
+    // Running the getLocalStreamPreview, we try to access the clients media
+    // using navigator.mediaDevices.getUserMedia, which will return a promise of a stream
+    // If the that works, then we run the successCallback there, other error is caught
+    webRTCHandler.getLocalStreamPreview(false, successCallback)
+
 }
 
 export const newRoomCreated = (data) => {

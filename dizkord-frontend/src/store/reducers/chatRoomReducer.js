@@ -30,6 +30,11 @@ const reducer = (state = initState, action) => {
                 ...state,
                 activeRooms: action.activeRooms
             }
+        case chatRoomActions.SET_LOCAL_STREAM:
+            return {
+                ...state,
+                localStream: action.localStream
+            }
         default: 
             return state
     }
