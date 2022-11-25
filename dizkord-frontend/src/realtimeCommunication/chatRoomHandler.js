@@ -40,13 +40,20 @@ export const updateActiveRooms = (data) => {
 }
 
 export const joinChatRoom = (roomId) => {
-    // Set the room details redux state for the user when they join the room
-    store.dispatch(setRoomDetails({ roomId }))
 
-    // run the setOpenRoom function and pass params of False for isUserCreator and True for isUserInRoom
-    store.dispatch(setOpenRoom(false, true))
+    const successCallback = () => {
+        // Set the room details redux state for the user when they join the room
+        store.dispatch(setRoomDetails({ roomId }))
+        // run the setOpenRoom function and pass params of False for isUserCreator and True for isUserInRoom
+        store.dispatch(setOpenRoom(false, true))
+        // Execute joinChatRoom from socketConnection to emit event to backend
+        // of video chat room id user is joining
+        socketConnection.joinChatRoom({ roomId })
+    }
 
-    socketConnection.joinChatRoom({ roomId })
+    // Similar to createChatRoom, get the video stream befow running all funcs in
+    // our success callback that we pass down to getLocalStreamPreview
+    webRTCHandler.getLocalStreamPreview(false, successCallback)
 }
 
 export const leaveChatRoom = () => {

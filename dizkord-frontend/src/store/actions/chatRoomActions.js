@@ -31,9 +31,9 @@ export const setActiveRooms = (activeRooms) => {
     }
 }
 
-export const setLocalStream = (stream) => {
+export const setLocalStream = (localStream) => {
     return {
         type: chatRoomActions.SET_LOCAL_STREAM,
-        stream
+        localStream
     }
 }
