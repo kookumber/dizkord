@@ -16,8 +16,8 @@ const MainContainer = styled('div')({
     justifyContent: 'flex-start',
     alignItems: "center",
     backgroundColor: "#202225",
-    overflow: 'scroll',
-      
+    // overflowY: 'scroll',
+    // scrollbarColor: 'transparent'
 })
 
 const ChatRoomButtonsContainers = styled('div')({
@@ -27,7 +27,7 @@ const ChatRoomButtonsContainers = styled('div')({
     justifyContent: 'center',
     alignItems: 'center',
     minHeight: '200px',
-    overflowY: 'scroll'
+    overflowY: 'scroll',
 })
 
 const Separator = styled('div')({
