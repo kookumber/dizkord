@@ -8,10 +8,12 @@ export const createNewChatRoom = () => {
         store.dispatch(setOpenRoom(true, true))
         socketConnection.createNewRoom()
     }
+
+    const audioOnly = store.getState.chatRoom.audioOnly
     // Running the getLocalStreamPreview, we try to access the clients media
     // using navigator.mediaDevices.getUserMedia, which will return a promise of a stream
     // If the that works, then we run the successCallback there, other error is caught
-    webRTCHandler.getLocalStreamPreview(false, successCallback)
+    webRTCHandler.getLocalStreamPreview(audioOnly, successCallback)
 
 }
 
@@ -50,10 +52,10 @@ export const joinChatRoom = (roomId) => {
         // of video chat room id user is joining
         socketConnection.joinChatRoom({ roomId })
     }
-
+    const audioOnly = store.getState.chatRoom.audioOnly
     // Similar to createChatRoom, get the video stream befow running all funcs in
     // our success callback that we pass down to getLocalStreamPreview
-    webRTCHandler.getLocalStreamPreview(false, successCallback)
+    webRTCHandler.getLocalStreamPreview(audioOnly, successCallback)
 }
 
 export const leaveChatRoom = () => {

@@ -8,6 +8,12 @@ export const chatRoomActions = {
     SET_SCREEN_SHARE_STREAM: 'ROOM.SET_SCREEN_SHARE_STREAM'
 }
 
+export const getActions = (dispatch) => {
+    return {
+        setAudioOnly: (onlyAudio) => dispatch(setAudioOnly(onlyAudio))
+    }
+}
+
 // Will provide details on if user is the creator of room and if room is open
 export const setOpenRoom = (isUserRoomCreator = false, isUserInRoom = false) => {
     return {
@@ -35,5 +41,12 @@ export const setLocalStream = (localStream) => {
     return {
         type: chatRoomActions.SET_LOCAL_STREAM,
         localStream
+    }
+}
+
+export const setAudioOnly = (audioOnly) => {
+    return {
+        type: chatRoomActions.SET_AUDIO_ONLY,
+        audioOnly
     }
 }
