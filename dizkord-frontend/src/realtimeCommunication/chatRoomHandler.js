@@ -1,7 +1,8 @@
 import store from "../store/store"
-import { setActiveRooms, setOpenRoom, setRoomDetails } from "../store/actions/chatRoomActions"
+import { setActiveRooms, setOpenRoom, setRoomDetails, setLocalStream } from "../store/actions/chatRoomActions"
 import * as socketConnection from './socketConnection'
 import * as webRTCHandler from './webRTCHandler'
+
 
 export const createNewChatRoom = () => {
     const successCallback = () => {
@@ -9,7 +10,7 @@ export const createNewChatRoom = () => {
         socketConnection.createNewRoom()
     }
 
-    const audioOnly = store.getState.chatRoom.audioOnly
+    const audioOnly = store.getState().chatRoom.audioOnly
     // Running the getLocalStreamPreview, we try to access the clients media
     // using navigator.mediaDevices.getUserMedia, which will return a promise of a stream
     // If the that works, then we run the successCallback there, other error is caught
@@ -52,7 +53,7 @@ export const joinChatRoom = (roomId) => {
         // of video chat room id user is joining
         socketConnection.joinChatRoom({ roomId })
     }
-    const audioOnly = store.getState.chatRoom.audioOnly
+    const audioOnly = store.getState().chatRoom.audioOnly
     // Similar to createChatRoom, get the video stream befow running all funcs in
     // our success callback that we pass down to getLocalStreamPreview
     webRTCHandler.getLocalStreamPreview(audioOnly, successCallback)
@@ -62,6 +63,15 @@ export const leaveChatRoom = () => {
     // Since we set details for the video chat room we've joined
     // we can get the id from the storeState to leave
     const roomId = store.getState().chatRoom.roomDetails.roomId
+
+    // Get local stream so we can turn off the video chat on the client cpu
+    const localStream = store.getState().chatRoom.localStream
+    if(localStream) {
+        localStream.getTracks().forEach((track) => {
+            track.stop();
+            store.dispatch(setLocalStream(null));
+        })
+    }
 
     // Leave the chatroom
     socketConnection.leaveChatRoom({ roomId })
