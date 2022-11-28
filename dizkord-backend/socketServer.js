@@ -9,6 +9,9 @@ const channelChatHistoryHandler = require('./socketHandlers/channelChatHistoryHa
 const roomCreateHandler = require('./socketHandlers/roomCreateHandler')
 const roomJoinHandler = require('./socketHandlers/roomJoinHandler')
 const roomLeaveHandler = require('./socketHandlers/roomLeaveHandler')
+const roomInitializeConnectionHandler = require('./socketHandlers/roomInitializeConnectionHandler')
+const roomSignalingDataHandler = require('./socketHandlers/roomSignalingDataHandler')
+
 
 // serverJS file will use the below function
 const registerSocketServer = (server) => {
@@ -73,6 +76,15 @@ const registerSocketServer = (server) => {
         socket.on('room-leave', (data) => {
             roomLeaveHandler(socket, data)
         })
+
+        socket.on('conn-init', (data) => {
+            roomInitializeConnectionHandler(socket, data)
+        })
+
+        socket.on('conn-signal', (signalData) => {
+            roomSignalingDataHandler(socket, signalData)
+        })
+
         socket.on('disconnect', () => {
             disconnectHandler(socket)
         })
