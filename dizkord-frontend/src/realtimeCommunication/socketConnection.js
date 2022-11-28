@@ -4,6 +4,7 @@ import { setUsersServers } from '../store/actions/serverActions'
 import store from '../store/store'
 import { updateDirectChatHistoryIfActive, updateChannelChatHistoryIfActive } from '../utils/chat'
 import * as chatRoomHandler from './chatRoomHandler'
+import * as webRTCHandler from './webRTCHandler'
 
 let socket = null
 
@@ -58,6 +59,27 @@ export const connectWithSocketServer = (userDetails) => {
         chatRoomHandler.newRoomCreated(data)
     })
 
+    socket.on('prepare-for-connection', (data) => {
+        const { connUserSocketId } = data
+        // When a user joins a chatroom and sends an event to other users in the room to 
+        // "prepare-for-connection", the webRTCHandler will get the data and add the connecting user
+        // to list of users connected
+        webRTCHandler.prepareNewPeerConnection(connUserSocketId, false)
+
+        // Additionally, the user receiving the prepare-for-connection event will in turn
+        // emit back to the server their socketId so the user will get that connection
+        socket.emit('conn-init', { connUserSocketId: connUserSocketId })
+    })
+
+    socket.on('conn-init', (data) => {
+        const { connUserSocketId } = data
+        webRTCHandler.prepareNewPeerConnection(connUserSocketId, true)
+    })
+
+    socket.on('conn-signal', (data) => {
+        webRTCHandler.handleSignalingData(data)
+    })
+
     socket.on('active-rooms', (data) => {
         chatRoomHandler.updateActiveRooms(data)
     })
@@ -94,4 +116,8 @@ export const joinChatRoom = (data) => {
 
 export const leaveChatRoom = (data) => {
     socket.emit('room-leave', data)
+}
+
+export const signalPeerData = (signalData) => {
+    socket.emit('conn-signal', signalData)
 }

@@ -12,6 +12,18 @@ const roomJoinHandler = (socket, data) => {
 
     serverStore.joinActiveRoom(roomId, participantDetails)
 
+    // Send data to users in chatroom that they should prepare for incoming connection (another user joining)
+    // Here, we'll loop through list of participants 
+    roomDetails.participants.forEach((participant) => {
+        // Check to make sure we're not sending data to our self
+        if (participant.socketId !== participantDetails.socketId) {
+            // to specific socketId of participant, emit the event of prepare-for-connection with the joining user's socket id
+            socket.to(participant.socketId).emit('prepare-for-connection', {
+                connUserSocketId: participantDetails.socketId
+            })
+        }
+    })
+
     chatRoomUpdates.updateChatrooms()
 }
 
