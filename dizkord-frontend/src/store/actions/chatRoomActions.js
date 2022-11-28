@@ -50,3 +50,10 @@ export const setAudioOnly = (audioOnly) => {
         audioOnly
     }
 }
+
+export const setRemoteStreams = (remoteStreams) => {
+    return {
+        type: chatRoomActions.SET_REMOTE_STREAMS,
+        remoteStreams
+    }
+}
