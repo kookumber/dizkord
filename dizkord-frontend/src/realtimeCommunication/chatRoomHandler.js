@@ -1,5 +1,5 @@
 import store from "../store/store"
-import { setActiveRooms, setOpenRoom, setRoomDetails, setLocalStream } from "../store/actions/chatRoomActions"
+import { setActiveRooms, setOpenRoom, setRoomDetails, setLocalStream, setRemoteStreams } from "../store/actions/chatRoomActions"
 import * as socketConnection from './socketConnection'
 import * as webRTCHandler from './webRTCHandler'
 
@@ -72,6 +72,8 @@ export const leaveChatRoom = () => {
             store.dispatch(setLocalStream(null));
         })
     }
+    store.dispatch(setRemoteStreams([]))
+    webRTCHandler.closeAllConnections()
 
     // Leave the chatroom
     socketConnection.leaveChatRoom({ roomId })
