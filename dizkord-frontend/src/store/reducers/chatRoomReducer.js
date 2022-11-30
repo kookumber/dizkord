@@ -45,6 +45,12 @@ const reducer = (state = initState, action) => {
                 ...state,
                 remoteStreams: action.remoteStreams
             }
+        case chatRoomActions.SET_SCREEN_SHARE_STREAM:
+            return {
+                ...state,
+                screenSharingStream: action.screenSharingStream,
+                isScreenSharingActive: action.isScreenSharingActive
+            }
         default: 
             return state
     }

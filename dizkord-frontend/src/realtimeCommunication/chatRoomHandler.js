@@ -1,5 +1,5 @@
 import store from "../store/store"
-import { setActiveRooms, setOpenRoom, setRoomDetails, setLocalStream, setRemoteStreams } from "../store/actions/chatRoomActions"
+import { setActiveRooms, setOpenRoom, setRoomDetails, setLocalStream, setRemoteStreams, setScreenShareStream } from "../store/actions/chatRoomActions"
 import * as socketConnection from './socketConnection'
 import * as webRTCHandler from './webRTCHandler'
 
@@ -72,6 +72,16 @@ export const leaveChatRoom = () => {
             store.dispatch(setLocalStream(null));
         })
     }
+
+    // Check if we're sharing screen and if so, get all streams and stop streaming screen share
+    const screenSharingStream = store.getState().chatRoom.screenSharingStream
+    if (screenSharingStream) {
+        screenSharingStream.getTracks().forEach((track) => {
+            track.stop()
+            store.dispatch(setScreenShareStream(null))
+        })
+    }
+
     store.dispatch(setRemoteStreams([]))
     webRTCHandler.closeAllConnections()
 

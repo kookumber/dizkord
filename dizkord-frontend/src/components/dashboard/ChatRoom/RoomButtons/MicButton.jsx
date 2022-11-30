@@ -3,10 +3,11 @@ import IconButton from "@mui/material/IconButton";
 import MicIcon from '@mui/icons-material/Mic'
 import MicIconOff from '@mui/icons-material/MicOff'
 
-const MicButton = () => {
+const MicButton = ({ localStream }) => {
     const [micEnabled, setMicEnabled] = useState(true)
 
     const handleToggleMic = () => {
+        localStream.getAudioTracks()[0].enabled = !micEnabled
         setMicEnabled(!micEnabled)
     }
 

@@ -135,3 +135,22 @@ export const handleParticipantLeftRoom = (data) => {
 
     store.dispatch(setRemoteStreams(newRemoteStreams))
 }
+
+export const switchOutgoingTracks = (stream) => {
+    // Loop through every connection object in our peers object
+     for (let socket_id in peers) {
+        // Loop through tracks of the connection object
+        for (let index in peers[socket_id].streams[0].getTracks()) {
+            for (let index2 in stream.getTracks()) {
+                if (peers[socket_id].streams[0].getTracks()[index].kind === stream.getTracks()[index2].kind) {
+                    peers[socket_id].replaceTrack(
+                        peers[socket_id].streams[0].getTracks()[index],
+                        stream.getTracks()[index2],
+                        peers[socket_id].streams[0]
+                    );
+                    break;
+                }
+            }
+        }
+     }
+}
