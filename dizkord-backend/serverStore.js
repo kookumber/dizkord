@@ -81,8 +81,12 @@ const getActiveRoom = (roomId) => {
     const activeRoom = activeRooms.find((room) => room.roomId === roomId)
 
     // Do the spread operator so we return just a copy of the activeRoom
-    return {
-        ...activeRoom,
+    if (activeRoom) {
+        return {
+            ...activeRoom
+        }
+    } else {
+        return null
     }
 } 
 
