@@ -80,6 +80,13 @@ export const connectWithSocketServer = (userDetails) => {
         webRTCHandler.handleSignalingData(data)
     })
 
+    socket.on('room-participant-left', (data) => {
+        // const { connUserSocketId } = data
+        console.log('user left room')
+        webRTCHandler.handleParticipantLeftRoom(data)
+
+    })
+
     socket.on('active-rooms', (data) => {
         chatRoomHandler.updateActiveRooms(data)
     })
