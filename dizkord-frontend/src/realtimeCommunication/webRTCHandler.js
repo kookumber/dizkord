@@ -100,3 +100,38 @@ const addNewRemoteStream = (remoteStream) => {
 
     store.dispatch(setRemoteStreams(newRemoteStreams))
 }
+
+// Called from chatRoomHandler's leaveChatRoom function
+// When user leaves a chatroom, this function will find all connections the user sent out
+// and close those connections
+export const closeAllConnections = () => {
+    // Loop through array of peer connection objects
+    Object.entries(peers).forEach(mappedObject => {
+        // Get peer's connected socket id if there is one
+        const connUserSocketId = mappedObject[0]
+        if (peers[connUserSocketId]) {
+            // destroy if there is one. destroy is a built in function from the
+            // simple-peer package
+            peers[connUserSocketId].destroy()
+            // delete specific object from the peers map
+            delete peers[connUserSocketId]
+        }
+    })
+}
+
+export const handleParticipantLeftRoom = (data) => {
+    const { connUserSocketId } = data
+    
+    if (peers[connUserSocketId]) {
+        peers[connUserSocketId].destroy()
+        delete peers[connUserSocketId]
+    }
+
+    const remoteStreams = store.getState().chatRoom.remoteStreams
+
+    const newRemoteStreams = remoteStreams.filter((remoteStream) => {
+        return remoteStream.connUserSocketId !== connUserSocketId
+    })
+
+    store.dispatch(setRemoteStreams(newRemoteStreams))
+}
