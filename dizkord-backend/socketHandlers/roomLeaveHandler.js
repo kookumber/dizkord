@@ -9,6 +9,18 @@ const roomLeaveHandler = (socket, data) => {
 
     if (activeRoom) {
         serverStore.leaveActiveRoom(roomId, socket.id)
+
+        // If the user leaving is not the last user, check to see if the chatroom is still open
+        const updatedActiveRoom = serverStore.getActiveRoom(roomId)
+        // If so, loop through participants of room and emit event that a user left
+        if (updatedActiveRoom) {
+            updatedActiveRoom.participants.forEach((participant) => {
+                socket.to(participant.socketId).emit('room-participant-left', {
+                    connUserSocketId: socket.id
+                })
+            })
+        }
+
         chatRoomUpdates.updateChatrooms()
     }
 }
