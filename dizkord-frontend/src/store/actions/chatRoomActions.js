@@ -10,7 +10,8 @@ export const chatRoomActions = {
 
 export const getActions = (dispatch) => {
     return {
-        setAudioOnly: (onlyAudio) => dispatch(setAudioOnly(onlyAudio))
+        setAudioOnly: (onlyAudio) => dispatch(setAudioOnly(onlyAudio)),
+        setScreenShareStream: (stream) => dispatch(setScreenShareStream(stream))
     }
 }
 
@@ -55,5 +56,13 @@ export const setRemoteStreams = (remoteStreams) => {
     return {
         type: chatRoomActions.SET_REMOTE_STREAMS,
         remoteStreams
+    }
+}
+
+export const setScreenShareStream = (stream) => {
+    return {
+        type: chatRoomActions.SET_SCREEN_SHARE_STREAM,
+        isScreenSharingActive: stream ? true : false,
+        screenSharingStream: stream || null
     }
 }
