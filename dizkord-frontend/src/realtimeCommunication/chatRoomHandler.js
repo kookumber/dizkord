@@ -33,12 +33,22 @@ export const updateActiveRooms = (data) => {
 
     const rooms = []
 
+    // Question mark after userDetails is for null safety. Only get _id if there are userDetails
+    const currentUserId = store.getState().auth.userDetails?._id
+    const currentUser = store.getState().auth.userDetails?.username
+
     activeRooms.forEach((room) => {
-        friends.forEach((friend) => {
-            if (friend.id === room.roomCreator.userId) {
-                rooms.push({ ...room, creatorUsername: friend.username })
-            }
-        })
+        const isRoomCreatedByMe = room.roomCreator.userId === currentUserId
+
+        if (isRoomCreatedByMe) {
+            rooms.push({...room, creatorUsername: currentUser})
+        } else {
+            friends.forEach((friend) => {
+                if (friend.id === room.roomCreator.userId) {
+                    rooms.push({ ...room, creatorUsername: friend.username })
+                }
+            })
+        }
     })
 
     store.dispatch(setActiveRooms(rooms))
