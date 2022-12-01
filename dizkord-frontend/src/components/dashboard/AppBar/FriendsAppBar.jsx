@@ -3,6 +3,7 @@ import { styled } from "@mui/system";
 import ChosenOptionLabel from "./ChosenOptionLabel";
 import CreateChatRoomButton from "../ChatRoom/CreateChatRoomButton";
 import DropdownMenu from "./DropdownMenu";
+import { connect } from "react-redux";
 
 const MainContainer = styled('div')({
     position: "absolute",
@@ -18,19 +19,23 @@ const MainContainer = styled('div')({
     padding: '0 15px'
 })
 
-const FriendsAppBar = () => {
-
-
+const FriendsAppBar = ({ isUserInRoom }) => {
 
     return (
         <MainContainer>
             <ChosenOptionLabel />
             <div style={{ display: 'flex' }}>
-                <CreateChatRoomButton />
+                <CreateChatRoomButton isUserInRoom={isUserInRoom} />
                 <DropdownMenu />
             </div>
         </MainContainer>
     )
 }
 
-export default FriendsAppBar
+const mapStoreStateToProps = ({ chatRoom }) => {
+    return {
+        ...chatRoom
+    }
+}
+
+export default connect(mapStoreStateToProps)(FriendsAppBar)
