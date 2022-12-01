@@ -22,10 +22,10 @@ const MainContainer = styled('div')({
 
 
 const ChatRoomButtons = (props) => {
-    const { localStream } = props
+    const { localStream, userJoinedWithAudioOnly } = props
     return (
         <MainContainer>
-            <CameraButton localStream={localStream} />
+            { !userJoinedWithAudioOnly && <CameraButton localStream={localStream} />}
             <ScreenShareButton { ...props } />
             <MicButton localStream={localStream} />
             <CloseRoomButton />
