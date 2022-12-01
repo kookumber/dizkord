@@ -9,7 +9,8 @@ const initState = {
     remoteStreams: [],
     audioOnly: false,
     screenSharingStream: null,
-    isScreenSharingActive: false
+    isScreenSharingActive: false,
+    userJoinedWithAudioOnly: false
 }
 
 const reducer = (state = initState, action) => {
@@ -50,6 +51,11 @@ const reducer = (state = initState, action) => {
                 ...state,
                 screenSharingStream: action.screenSharingStream,
                 isScreenSharingActive: action.isScreenSharingActive
+            }
+        case chatRoomActions.SET_USER_JOINED_WITH_AUDIO_ONLY:
+            return {
+                ...state,
+                userJoinedWithAudioOnly: action.userJoinedWithAudioOnly
             }
         default: 
             return state
