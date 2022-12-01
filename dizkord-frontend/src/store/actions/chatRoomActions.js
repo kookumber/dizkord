@@ -5,7 +5,8 @@ export const chatRoomActions = {
     SET_LOCAL_STREAM: 'ROOM.SET_LOCAL_STREAM',
     SET_REMOTE_STREAMS: 'ROOM.SET_REMOTE_STREAMS',
     SET_AUDIO_ONLY: 'ROOM.SET_AUDIO_ONLY',
-    SET_SCREEN_SHARE_STREAM: 'ROOM.SET_SCREEN_SHARE_STREAM'
+    SET_SCREEN_SHARE_STREAM: 'ROOM.SET_SCREEN_SHARE_STREAM',
+    SET_USER_JOINED_WITH_AUDIO_ONLY: 'ROOM.SET_USER_JOINED_WITH_AUDIO_ONLY' 
 }
 
 export const getActions = (dispatch) => {
@@ -64,5 +65,12 @@ export const setScreenShareStream = (stream) => {
         type: chatRoomActions.SET_SCREEN_SHARE_STREAM,
         isScreenSharingActive: stream ? true : false,
         screenSharingStream: stream || null
+    }
+}
+
+export const setUserJoinedWithAudioOnly = (onlyWithAudio) => {
+    return {
+        type: chatRoomActions.SET_USER_JOINED_WITH_AUDIO_ONLY,
+        userJoinedWithAudioOnly: onlyWithAudio
     }
 }
