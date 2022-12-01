@@ -1,5 +1,5 @@
 import store from "../store/store"
-import { setActiveRooms, setOpenRoom, setRoomDetails, setLocalStream, setRemoteStreams, setScreenShareStream } from "../store/actions/chatRoomActions"
+import { setActiveRooms, setOpenRoom, setRoomDetails, setLocalStream, setRemoteStreams, setScreenShareStream, setUserJoinedWithAudioOnly } from "../store/actions/chatRoomActions"
 import * as socketConnection from './socketConnection'
 import * as webRTCHandler from './webRTCHandler'
 
@@ -7,6 +7,9 @@ import * as webRTCHandler from './webRTCHandler'
 export const createNewChatRoom = () => {
     const successCallback = () => {
         store.dispatch(setOpenRoom(true, true))
+
+        const audioOnly = store.getState().chatRoom.audioOnly
+        store.dispatch(setUserJoinedWithAudioOnly(audioOnly))
         socketConnection.createNewRoom()
     }
 
@@ -49,6 +52,9 @@ export const joinChatRoom = (roomId) => {
         store.dispatch(setRoomDetails({ roomId }))
         // run the setOpenRoom function and pass params of False for isUserCreator and True for isUserInRoom
         store.dispatch(setOpenRoom(false, true))
+
+        const audioOnly = store.getState().chatRoom.audioOnly
+        store.dispatch(setUserJoinedWithAudioOnly(audioOnly))
         // Execute joinChatRoom from socketConnection to emit event to backend
         // of video chat room id user is joining
         socketConnection.joinChatRoom({ roomId })
