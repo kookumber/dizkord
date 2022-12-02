@@ -11,6 +11,7 @@ import RegisterPage from './components/authPages/RegisterPage/RegisterPage';
 import Dashboard from './components/dashboard/Dashboard';
 import FriendsSideBar from './components/dashboard/FriendsSideBar/FriendsSideBar';
 import ChannelsSideBar from './components/dashboard/ChannelsSideBar/ChannelsSideBar';
+import Splash from './components/splash/Splash';
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
               <Route exact path="/register" element={<RegisterPage />} />
               <Route exact path="/conversations/:id" element={<Dashboard SubsideBar={FriendsSideBar}/>} />
               <Route exact path="/channels/:serverId/:channelId" element={<Dashboard SubsideBar={ChannelsSideBar} />} />
-              <Route path="/" element={<Dashboard SubsideBar={FriendsSideBar} />} />
+              <Route exact path="/" element={<Splash />} />
           </Routes>
       </Router>
     </>
