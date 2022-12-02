@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { validateRegisterForm } from "../../../utils/validators";
 import AuthBox from "../../sharedComponents/AuthBox";
@@ -34,10 +34,28 @@ const RegisterPage = ({ register, error }) => {
     }
 
     return (
-        <AuthBox additionalStyles={{ height: '560px', width: '480px' }}>
-            <Typography variant='h5' sx={{ color: 'white' }}>
-                Create an Account
-            </Typography>
+        <AuthBox 
+            additionalStyles={{ 
+                height: '500px', 
+                width: '416px', 
+                display: 'flex', 
+                flexDirection: 'column', 
+                justifyContent: 'flex-start',
+                // alignItems: 'center'
+            }}
+        >
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}
+            >
+                <Typography variant='h5' sx={{ color: 'white', fontWeight: 'bold', fontFamily: 'Noto Sans' }}>
+                    Create an Account
+                </Typography>
+            </Box>
             <RegisterPageForm 
                 email={email}
                 setEmail={setEmail}

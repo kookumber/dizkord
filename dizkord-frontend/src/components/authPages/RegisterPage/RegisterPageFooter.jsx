@@ -2,6 +2,7 @@ import React from "react";
 import CustomPrimaryButton from "../../sharedComponents/CustomPrimaryButton";
 import RedirectInfo from "../../sharedComponents/RedirectInfo";
 import { useNavigate } from "react-router-dom";
+import { Typography } from "@mui/material";
 
 const RegisterPageFooter = ({ handleRegister }) => {
 
@@ -24,6 +25,15 @@ const RegisterPageFooter = ({ handleRegister }) => {
                 additionalStyles={{ marginTop: '5px' }}
                 redirectHandler={handlePushToLoginPage}
             />
+            <Typography
+                sx={{
+                    marginTop: '25px',
+                    fontSize: '12px',
+                    color: '#A3A6AA'
+                }}
+            >
+                By registering, you agree to Dizkord's Terms of Service and Privacy Policy.
+            </Typography>
         </>
     )
 }

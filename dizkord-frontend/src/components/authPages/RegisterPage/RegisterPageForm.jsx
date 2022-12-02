@@ -11,6 +11,7 @@ export const RegisterPageForm = ({ email, setEmail,
     let usernameLabel = ""
     let passwordLabel = ""
     let emailError, usernameError, passwordError
+
     if (error) {
         if (error === "Email already in use.") {
             emailLabel = "EMAIL - Email is already registered"
@@ -33,13 +34,54 @@ export const RegisterPageForm = ({ email, setEmail,
         usernameLabel = "USERNAME"
         passwordLabel = "PASSWORD"
     }
+
+    const labelStyles = { 
+        fontFamily: 'Noto Sans', 
+        fontWeight: 'bold', 
+        color: '#B9BBBE', 
+        fontSize: '12px',
+        width: '95%',
+        marginBottom: '7px',
+        minWidth: '416px'
+    }
+
+    const additionalStyles = { 
+        border: 'none', 
+        fontSize: '12px', 
+        fontFamily: 'Noto Sans',
+        width: '95%'
+    }
     
 
     return (
         <>
-            <InputWithLabel value={email} setValue={setEmail} label={emailLabel} type="text" className={emailError ? "error-message" : null}/>
-            <InputWithLabel value={username} setValue={setUsername} label={usernameLabel} type="text" className={usernameError ? "error-message" : null} />
-            <InputWithLabel value={password} setValue={setPassword} label={passwordLabel} type="password" className={passwordError ? "error-message" : null} />
+            <InputWithLabel 
+                value={email} 
+                setValue={setEmail} 
+                label={emailLabel} 
+                type="text" 
+                className={emailError ? "error-message" : null}
+                labelStyles={labelStyles}
+                additionalStyles={additionalStyles}
+                />
+            <InputWithLabel 
+                value={username} 
+                setValue={setUsername} 
+                label={usernameLabel} 
+                type="text" 
+                className={usernameError ? "error-message" : null} 
+                labelStyles={labelStyles}
+                additionalStyles={additionalStyles}
+                />
+            <InputWithLabel 
+                value={password} 
+                setValue={setPassword} 
+                label={passwordLabel} 
+                type="password" 
+                className={passwordError ? "error-message" : null} 
+                labelStyles={labelStyles}
+                additionalStyles={additionalStyles}
+                />
         </>
     )
 }
