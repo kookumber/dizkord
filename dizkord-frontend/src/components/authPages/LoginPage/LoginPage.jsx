@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AuthBox from "../../sharedComponents/AuthBox";
+import Box from '@mui/material/Box'
 import LoginPageHeader from "./LoginPageHeader";
 import LoginPageForm from "./LoginPageForm";
 import LoginPageFooter from "./LoginPageFooter";
@@ -8,7 +9,14 @@ import { connect } from "react-redux";
 import { getActions } from "../../../store/actions/authActions";
 import { useNavigate } from 'react-router-dom'
 import '../authPages.scss'
+import { styled } from "@mui/system";
+import { Typography } from "@mui/material";
 
+const QRImage = styled('img')({
+    width: '176px',
+    height: '176px',
+    borderRadius: '4px'
+})
 
 // The login prop is pulled from getActions in authActions page
 const LoginPage = ({ login, error }) => {
@@ -37,19 +45,61 @@ const LoginPage = ({ login, error }) => {
 
     return (
         <AuthBox>
-            <LoginPageHeader />
-            <LoginPageForm
-                email={email}
-                setEmail={setEmail}
-                password={password}
-                setPassword={setPassword}
-                error={error}
+            <Box
+                sx={{
+                    width: '414px'
+                }}
+            >
+                <LoginPageHeader />
+                <LoginPageForm
+                    email={email}
+                    setEmail={setEmail}
+                    password={password}
+                    setPassword={setPassword}
+                    error={error}
 
-            />
-            <LoginPageFooter 
-                isFormValid={isFormValid}
-                handleLogin={handleLogin}
-            />
+                />
+                <LoginPageFooter 
+                    isFormValid={isFormValid}
+                    handleLogin={handleLogin}
+                />
+            </Box>
+            <Box
+                sx={{
+                    width: '240px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}
+            >
+                <QRImage src="/github_qr_code.png" />
+                <Typography
+                    variant="h5"
+                    sx={{
+                        color: 'white',
+                        textAlign: 'center',
+                        fontSize: '24px',
+                        fontWeight: 'bold',
+                        fontFamily: 'Helvetica Neue',
+                        marginTop: '15px'
+                    }}
+                >
+                    Visit my Github Repo
+                </Typography>
+                <Typography
+                    variant="subtitle1"
+                    sx={{
+                        color: '#B9BBBE',
+                        textAlign: 'center',
+                        fontSize: '16px',
+                        fontFamily: 'Helvetica Neue',
+                        marginTop: '10px'
+                    }}
+                >
+                    Scan this with your phone to visit my Github Repo
+                </Typography>
+            </Box>
             
         </AuthBox>
     )

@@ -30,6 +30,8 @@ const LoginPageForm = ({ email, setEmail, password, setPassword, error }) => {
                 type='text'
                 placeholder='Enter e-mail'
                 className={emailError ? "error-message" : null}
+                labelStyles={{ fontFamily: 'Noto Sans', fontWeight: 'bold', color: '#B9BBBE', fontSize: '12px' }}
+                additionalStyles={{ border: 'none', fontSize: '12px', fontFamily: 'Noto Sans' }}
             />
             
             <InputWithLabel
@@ -39,6 +41,8 @@ const LoginPageForm = ({ email, setEmail, password, setPassword, error }) => {
                 type='password'
                 placeholder='Enter your password'
                 className={passwordError ? "error-message" : null}
+                labelStyles={{ fontFamily: 'Noto Sans', fontWeight: 'bold', color: '#B9BBBE', fontSize: '12px' }}
+                additionalStyles={{ border: 'none', fontSize: '12px', fontFamily: 'Noto Sans' }}
             />
         </>
     )
