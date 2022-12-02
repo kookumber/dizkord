@@ -42,7 +42,7 @@ export const RegisterPageForm = ({ email, setEmail,
         fontSize: '12px',
         width: '95%',
         marginBottom: '7px',
-        minWidth: '416px'
+        minWidth: '405px'
     }
 
     const additionalStyles = { 

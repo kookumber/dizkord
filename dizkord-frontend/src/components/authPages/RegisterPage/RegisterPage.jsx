@@ -10,7 +10,7 @@ import { connect } from "react-redux";
 import '../authPages.scss'
 
 
-const RegisterPage = ({ register, error }) => {
+const RegisterPage = ({ register, error, login }) => {
     const navigate = useNavigate()
 
     const [email, setEmail] = useState('')
@@ -67,7 +67,8 @@ const RegisterPage = ({ register, error }) => {
                 />
             <RegisterPageFooter
                 handleRegister={handleRegister}
-                isFormValid={isFormValid} />
+                isFormValid={isFormValid}
+                login={login} />
         </AuthBox>
     )
 }
