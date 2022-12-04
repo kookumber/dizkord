@@ -4,6 +4,8 @@ import {
   Routes, 
   Route,
   } from "react-router-dom"
+
+import { AuthRoutes, ProtectedRoutes } from './utils/routeUtil'; 
 import './App.css';
 
 import LoginPage from './components/authPages/LoginPage/LoginPage';
@@ -18,11 +20,16 @@ function App() {
     <>
       <Router>
           <Routes>
-              <Route exact path="/login" element={<LoginPage />} />
-              <Route exact path="/register" element={<RegisterPage />} />
-              <Route exact path="/conversations/:id" element={<Dashboard SubsideBar={FriendsSideBar}/>} />
-              <Route exact path="/channels/:serverId/:channelId" element={<Dashboard SubsideBar={ChannelsSideBar} />} />
-              <Route exact path="/" element={<Splash />} />
+              <Route element={<AuthRoutes />}>
+                <Route exact path="/login" element={<LoginPage />} />
+                <Route exact path="/register" element={<RegisterPage />} />
+              </Route>
+              <Route element={<ProtectedRoutes />}>
+                <Route exact path="/conversations/:id" element={<Dashboard SubsideBar={FriendsSideBar}/>} />
+                <Route exact path="/channels/:serverId/:channelId" element={<Dashboard SubsideBar={ChannelsSideBar} />} />
+                <Route exact path="/conversations/:id" element={<Dashboard SubsideBar={FriendsSideBar} />} />
+                <Route exact path="/" element={<Splash />} />
+              </Route>
           </Routes>
       </Router>
     </>
