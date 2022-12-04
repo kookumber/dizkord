@@ -21,6 +21,7 @@ function App() {
       <Router>
           <Routes>
               <Route element={<AuthRoutes />}>
+                <Route exact path="/" element={<Splash />} />
                 <Route exact path="/login" element={<LoginPage />} />
                 <Route exact path="/register" element={<RegisterPage />} />
               </Route>
@@ -28,7 +29,6 @@ function App() {
                 <Route exact path="/conversations/:id" element={<Dashboard SubsideBar={FriendsSideBar}/>} />
                 <Route exact path="/channels/:serverId/:channelId" element={<Dashboard SubsideBar={ChannelsSideBar} />} />
                 <Route exact path="/conversations/:id" element={<Dashboard SubsideBar={FriendsSideBar} />} />
-                <Route exact path="/" element={<Splash />} />
               </Route>
           </Routes>
       </Router>
