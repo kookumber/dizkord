@@ -8,7 +8,7 @@ import { validateLoginForm } from "../../../utils/validators";
 import { connect } from "react-redux";
 import { getActions } from "../../../store/actions/authActions";
 import { useNavigate } from 'react-router-dom'
-import '../authPages.scss'
+import '../authPages.css'
 import { styled } from "@mui/system";
 import { Typography } from "@mui/material";
 

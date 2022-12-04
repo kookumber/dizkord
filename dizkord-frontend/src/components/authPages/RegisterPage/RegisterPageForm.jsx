@@ -1,6 +1,6 @@
 import React from "react";
 import InputWithLabel from "../../sharedComponents/InputWithLabels";
-import '../authPages.scss'
+import '../authPages.css'
 
 export const RegisterPageForm = ({ email, setEmail, 
                                    password, setPassword, 

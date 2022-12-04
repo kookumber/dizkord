@@ -7,7 +7,7 @@ import { RegisterPageForm } from "./RegisterPageForm";
 import { useNavigate } from 'react-router-dom';
 import { getActions } from "../../../store/actions/authActions";
 import { connect } from "react-redux";
-import '../authPages.scss'
+import '../authPages.css'
 
 
 const RegisterPage = ({ register, error, login }) => {
