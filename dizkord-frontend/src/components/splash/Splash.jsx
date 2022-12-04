@@ -96,7 +96,7 @@ const Splash = ({ login }) => {
                         marginTop: '20px',
                     }}
                 >
-                    <a href="https://github.com/kookumber/dizkord" target="_blank" style={{ textDecoration: 'none' }}>
+                    <a href="https://github.com/kookumber/dizkord" target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
                         <Button
                             sx={{
                                 height: '56px',
@@ -143,7 +143,7 @@ const Splash = ({ login }) => {
             </MainSection>
             <SplashSection>
                 <SplashDiv sx={{ minWidth: '600px', marginRight: '40px' }}>
-                    <img src="/discord-example-img.png"/>
+                    <img src="/discord-example-img.png" alt="discord-example-img" />
                 </SplashDiv>
                 <SplashDiv sx={{ width: '40%', minWidth: '380px'}}>
                     <Typography variant="h3" sx={{ color: '#23272A', fontWeight: 800 }}>

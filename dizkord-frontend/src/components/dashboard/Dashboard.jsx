@@ -45,7 +45,7 @@ const Dashboard = ({ setUserDetails, SubsideBar, isUserInRoom }) => {
             // using the function we created in our socketConnection file
             connectWithSocketServer(JSON.parse(userDetails))
         }
-    }, []) 
+    }, [setUserDetails]) 
 
     return (
         <Wrapper>

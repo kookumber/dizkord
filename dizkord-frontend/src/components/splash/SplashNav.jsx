@@ -121,10 +121,4 @@ const SplashNav = ({ userDetails }) => {
     )
 }
 
-const mapStoreStateToProps = ({ auth }) => {
-    return {
-        ...auth
-    }
-}
-
 export default SplashNav

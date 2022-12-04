@@ -16,26 +16,7 @@ const MainContainer = styled('div')({
     justifyContent: 'flex-start',
     alignItems: "center",
     backgroundColor: "#202225",
-    // overflowY: 'scroll',
-    // scrollbarColor: 'transparent'
-})
 
-const ChatRoomButtonsContainers = styled('div')({
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    minHeight: '200px',
-    overflowY: 'scroll',
-})
-
-const Separator = styled('div')({
-    width: '50%',
-    backgroundColor: '#4F545C7A',
-    height: '3px',
-    position: 'relative',
-    marginTop: '10px'
 })
 
 const Sidebar = ({ activeRooms, isUserInRoom }) => {

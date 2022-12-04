@@ -13,9 +13,6 @@ const MainContainer = styled('div')({
     display: 'flex',
     backgroundColor: '#5865f2',
     flexWrap: 'wrap',
-    // borderTopLeftRadius: '8px',
-    // borderTopRightRadius: '8px',
-    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center'
 })
