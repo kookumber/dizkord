@@ -17,7 +17,7 @@ const roomSignalingDataHandler = require('./socketHandlers/roomSignalingDataHand
 const registerSocketServer = (server) => {
     const io = require("socket.io")(server, {
         cors: {
-            origin: "*",
+            origin: "https://dizkord.onrender.com/",
             methods: ["GET", "POST"],
         },
     });
