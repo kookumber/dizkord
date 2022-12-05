@@ -2,7 +2,8 @@ import axios from 'axios';
 import { logout } from '../auth';
 
 const apiClient = axios.create({
-    baseURL: 'http://localhost:5002/api',
+    // baseURL: 'http://localhost:5002/api',
+    baseURL: 'https://dizkord.onrender.com',
     timeout: 1000
 })
 
