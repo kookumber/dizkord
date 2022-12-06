@@ -31,6 +31,7 @@ socketServer.registerSocketServer(server)
 // Mongoose is package that lets us work with MongoDB easily
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {
+        console.log("Connected to MongoDB successfully")
         server.listen(PORT, () => {
             console.log(`Server is listening on port ${PORT}`)
         })

@@ -11,16 +11,16 @@ let socket = null
 // This function listens to events from the backend
 export const connectWithSocketServer = (userDetails) => {
     const jwtToken = userDetails.token
-    socket = io('http://localhost:5002', {
-        auth: {
-            token: jwtToken,
-        },
-    })
-    // socket = io('https://dizkord-api.onrender.com', {
+    // socket = io('http://localhost:5002', {
     //     auth: {
     //         token: jwtToken,
     //     },
     // })
+    socket = io('https://dizkord-api.onrender.com', {
+        auth: {
+            token: jwtToken,
+        },
+    })
 
     socket.on('connect', () => {
         console.log('Successfully connected with socket.io server')
