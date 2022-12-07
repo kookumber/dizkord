@@ -16,7 +16,7 @@ export const connectWithSocketServer = (userDetails) => {
     //         token: jwtToken,
     //     },
     // })
-    socket = io('https://dizkord.onrender.com/#/', {
+    socket = io('https://dizkord-api.onrender.com/#/', {
         auth: {
             token: jwtToken,
         },
