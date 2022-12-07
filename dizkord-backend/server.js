@@ -32,6 +32,9 @@ app.use(express.json());
 app.use(cors(corsOptions));
 
 // Register routes here
+app.get('/', (req, res) => {
+    res.send(200)
+})
 app.use('/api/auth', authRoutes)
 app.use("/api/friend-invite", friendInviteRoutes)
 app.use('/api/server', serverRoutes)
