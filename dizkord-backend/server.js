@@ -29,7 +29,7 @@ const corsOptions = {
 }
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: true }));
 
 // Register routes here
 app.get('/', (req, res) => {
