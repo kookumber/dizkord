@@ -32,6 +32,7 @@ const postLogin = async (req, res) => {
         }
         res.status(400).send("Invalid credentials. Please try again")
     } catch(err) {
+        console.log(err)
         return res.status(500).send("Error occured. Try logging in again")
     }
     
