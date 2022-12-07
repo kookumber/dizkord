@@ -16,15 +16,20 @@ const app = express();
 
 const allowedOrigins = ['http://localhost:3000', 'https://dizkord.onrender.com', 'https://dizkord.onrender.com/conversations/@me']
 
-app.use(express.json());
-app.use(cors({
+const corsOptions = {
     origin: (origin, callback) => {
-        if (allowedOrigins.indexOf(origin) === -1) {
-            return callback(new Error('Access from specified Origin now allowed'), false)
+        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS!!!'))
         }
-        return callback(null, true)
-    }
-}));
+    },
+    credentials: true,
+    optionSuccessStatus: 200
+}
+
+app.use(express.json());
+app.use(cors(corsOptions));
 
 // Register routes here
 app.use('/api/auth', authRoutes)
