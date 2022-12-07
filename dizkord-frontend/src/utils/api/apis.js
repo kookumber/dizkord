@@ -2,9 +2,10 @@ import axios from 'axios';
 import { logout } from '../auth';
 
 const apiClient = axios.create({
-    baseURL: 'http://localhost:5002/api',
-    // baseURL: 'https://dizkord-api.onrender.com',
-    timeout: 1000
+    // baseURL: 'http://localhost:5002/api',
+    // baseURL: 'https://dizkord-api.onrender.com/',
+    baseURL: 'https://dizkord-api.onrender.com/api'
+    // timeout: 1000
 })
 
 // Run this block that intercepts http request before they get pushed to the server

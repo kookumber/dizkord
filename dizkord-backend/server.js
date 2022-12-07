@@ -13,10 +13,28 @@ const channelRoutes = require('./routes/channelRoutes')
 const PORT = process.env.PORT || process.env.API_PORT;
 
 const app = express();
+
+const allowedOrigins = ['http://localhost:3000', 'https://dizkord.onrender.com', 'https://dizkord.onrender.com/conversations/@me']
+
+const corsOptions = {
+    origin: (origin, callback) => {
+        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS!!!'))
+        }
+    },
+    credentials: true,
+    optionSuccessStatus: 200
+}
+
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: true }));
 
 // Register routes here
+app.get('/', (req, res) => {
+    res.send(200)
+})
 app.use('/api/auth', authRoutes)
 app.use("/api/friend-invite", friendInviteRoutes)
 app.use('/api/server', serverRoutes)
@@ -31,6 +49,7 @@ socketServer.registerSocketServer(server)
 // Mongoose is package that lets us work with MongoDB easily
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {
+        console.log("Connected to MongoDB successfully")
         server.listen(PORT, () => {
             console.log(`Server is listening on port ${PORT}`)
         })
