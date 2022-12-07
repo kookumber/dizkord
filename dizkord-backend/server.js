@@ -13,8 +13,18 @@ const channelRoutes = require('./routes/channelRoutes')
 const PORT = process.env.PORT || process.env.API_PORT;
 
 const app = express();
+
+const allowedOrigins = ['http://localhost:3000', 'https://dizkord.onrender.com', 'https://dizkord.onrender.com/conversations/@me']
+
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: (origin, callback) => {
+        if (allowedOrigins.indexOf(origin) === -1) {
+            return callback(new Error('Access from specified Origin now allowed'), false)
+        }
+        return callback(null, true)
+    }
+}));
 
 // Register routes here
 app.use('/api/auth', authRoutes)
