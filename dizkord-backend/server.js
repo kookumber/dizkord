@@ -35,7 +35,7 @@ app.use(cors({ origin: true }));
 
 app.get('/*', (req, res) => {
     res.sendFile(
-        path.join(__dirname, 'dizkord-frontend/public/index.html'), 
+        path.join(__dirname, '../dizkord-frontend/public/index.html'), 
         (err) => { if (err) { res.status(500).send(err) }
     })
 })
