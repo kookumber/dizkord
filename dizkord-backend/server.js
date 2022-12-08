@@ -33,13 +33,6 @@ app.use(cors({ origin: true }));
 
 // Register routes here
 
-app.get('/*', (req, res) => {
-    res.sendFile(
-        path.join(__dirname, '../dizkord-frontend/public/index.html'), 
-        (err) => { if (err) { res.status(500).send(err) }
-    })
-})
-
 app.get('/', (req, res) => {
     res.send(200)
 })
